@@ -1,0 +1,16 @@
+
+public class Decorateur<T> extends T {
+
+	private var inner : T;
+
+	public construct(inner : T) {
+		this.inner = inner;
+	};
+
+	for (m : Method in T.getMethods()) {
+		${m.acces} ${m.returnType} ${m.name} (${m.args}) {
+			return inner.${m.name} (${m.args});
+		}
+	};
+
+};
