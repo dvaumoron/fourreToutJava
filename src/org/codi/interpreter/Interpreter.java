@@ -2,8 +2,11 @@ package org.codi.interpreter;
 
 import static org.codi.interpreter.objet.Fonction.RETURN;
 import static org.codi.interpreter.semantique.Affectation.DECLARATION;
-import static org.codi.interpreter.semantique.AppelFonction.APPEL_FONCTION;
+import static org.codi.interpreter.semantique.Fonction.APPEL_FONCTION;
+import static org.codi.interpreter.semantique.Fonction.FONCTION;
+import static org.codi.interpreter.semantique.Fonction.LISTE;
 import static org.codi.interpreter.semantique.Controle.IF;
+import static org.codi.interpreter.semantique.Controle.BLOC;
 import static org.codi.interpreter.semantique.Operation.EGALITE;
 import static org.codi.interpreter.semantique.Operation.MULTIPLICATION;
 import static org.codi.interpreter.semantique.Operation.SOUSTRACTION;
@@ -13,16 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.codi.interpreter.objet.Entier;
-import org.codi.interpreter.objet.Fonction;
 
 public class Interpreter {
 
 	public static void main(String[] args) {
 
-		Constante un = new Constante(new Entier(1));
-		Variable variableN = new Variable("n");
-		Variable variableReturn = new Variable(RETURN);
-		Variable variableFactorielle = new Variable("factorielle");
+		Expression un = new Constante(new Entier(1));
+		Expression variableN = new Variable("n");
+		Expression variableReturn = new Variable(RETURN);
+		Expression variableFactorielle = new Variable("factorielle");
 
 		Expression noeudSoustraction = new Noeud(SOUSTRACTION, Arrays.asList(variableN, un));
 		Expression appelRecursif = new Noeud(APPEL_FONCTION, Arrays.asList(variableFactorielle, noeudSoustraction));
@@ -34,16 +36,19 @@ public class Interpreter {
 		listIf.add(new Noeud(DECLARATION, Arrays.asList(variableReturn, noeudProduit)));
 		Expression noeudIf = new Noeud(IF, listIf);
 
-		Fonction factorielle = new Fonction(
-				Arrays.asList(variableN),
-				Arrays.asList(noeudIf));
+		Expression arguments = new Noeud(LISTE, Arrays.asList(variableN));
+		Expression factorielle = new Noeud (FONCTION, Arrays.asList(
+				arguments, new Noeud(LISTE, Arrays.asList(noeudIf))));
+
+		Expression declarationFactorielle = new Noeud(DECLARATION, Arrays.asList(
+				variableFactorielle, factorielle));
+
+		Expression appel = new Noeud(APPEL_FONCTION, Arrays.asList(variableFactorielle, new Constante(new Entier(5))));
+
+		Expression bloc = new Noeud(BLOC, Arrays.asList(declarationFactorielle, appel));
 
 		Environnement environnement = new Environnement();
-		environnement.set("factorielle", factorielle);
-
-		Noeud appel = new Noeud(APPEL_FONCTION, Arrays.asList(variableFactorielle, new Constante(new Entier(5))));
-
-		System.out.println(((Entier) appel.evaluer(environnement)).getValeur());
+		System.out.println(((Entier) bloc.evaluer(environnement)).getValeur());
 	}
 
 }

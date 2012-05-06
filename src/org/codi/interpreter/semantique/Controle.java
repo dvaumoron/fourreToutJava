@@ -3,6 +3,7 @@ package org.codi.interpreter.semantique;
 import java.util.List;
 
 import org.codi.interpreter.Environnement;
+import org.codi.interpreter.EnvironnementLocal;
 import org.codi.interpreter.Expression;
 import org.codi.interpreter.objet.Booleen;
 
@@ -17,6 +18,19 @@ public enum Controle implements Semantique {
 				valeur = expressions.get(1).evaluer(environnement);
 			} else if (expressions.size() > 2) {
 				valeur = expressions.get(2).evaluer(environnement);
+			}
+			return valeur;
+		}
+	},
+
+	BLOC {
+		@Override
+		public Object evaluer(Environnement environnement,
+				List<Expression> expressions) {
+			Object valeur = null;
+			Environnement environnementLocal = new EnvironnementLocal(environnement);
+			for(Expression expression : expressions) {
+				valeur = expression.evaluer(environnementLocal);
 			}
 			return valeur;
 		}
