@@ -1,0 +1,12 @@
+package jdr;
+
+public enum WeaponType {
+
+	SIMPLE_MELEE,
+	MILITARY_MELEE,
+	SUPERIOR_MELLE,
+	SIMPLE_RANGED,
+	MILITARY_RANGED,
+	SUPERIOR_RANGED
+
+}
