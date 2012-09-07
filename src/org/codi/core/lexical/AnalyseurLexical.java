@@ -97,7 +97,7 @@ public class AnalyseurLexical {
 		etatInitial.addTransition('/', etatOperateur);
 		
 		AnalyseurLexical analyseurLexical = new AnalyseurLexical(etatInitial);
-		for(Lexeme l : analyseurLexical.analise("35+4-25")) {
+		for(Lexeme l : analyseurLexical.analise("35+4*6-25")) {
 			System.out.println(l.getType());
 			System.out.println(l.getValeur());
 		}

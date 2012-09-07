@@ -1,7 +1,7 @@
 package org.codi.interpreter.objet;
 
 
-public class Reel implements Nombre {
+public class Reel implements Nombre, Objet {
 
 	private final double valeur;
 
@@ -14,13 +14,8 @@ public class Reel implements Nombre {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Entier) {
-			return ((Entier) o).getValeur() == valeur;
-		} else if (o instanceof Reel) {
-			return ((Reel) o).getValeur() == valeur;
-		}
-		return false;
+	public Classe getClasse() {
+		return Classe.REEL;
 	}
 
 	@Override

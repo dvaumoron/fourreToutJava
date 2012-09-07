@@ -1,7 +1,7 @@
 package org.codi.interpreter.objet;
 
 
-public class Entier implements Nombre {
+public class Entier implements Nombre, Objet {
 
 	private final long valeur;
 
@@ -11,6 +11,11 @@ public class Entier implements Nombre {
 
 	public long getValeur() {
 		return valeur;
+	}
+
+	@Override
+	public Classe getClasse() {
+		return Classe.ENTIER;
 	}
 
 	@Override

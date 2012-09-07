@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codi.interpreter.objet.Classe;
 import org.codi.interpreter.objet.Entier;
 
 public class Interpreter {
@@ -22,9 +23,9 @@ public class Interpreter {
 	public static void main(String[] args) {
 
 		Expression un = new Constante(new Entier(1));
-		Expression variableN = new Variable("n");
-		Expression variableReturn = new Variable(RETURN);
-		Expression variableFactorielle = new Variable("factorielle");
+		Expression variableN = new Variable("n", Classe.ENTIER);
+		Expression variableReturn = new Variable(RETURN, Classe.ENTIER);
+		Expression variableFactorielle = new Variable("factorielle", Classe.FONCTION);
 
 		Expression noeudSoustraction = new Noeud(SOUSTRACTION, Arrays.asList(variableN, un));
 		Expression appelRecursif = new Noeud(APPEL_FONCTION, Arrays.asList(variableFactorielle, noeudSoustraction));
