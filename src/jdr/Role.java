@@ -1,10 +1,10 @@
 package jdr;
 
-public class Role {
+public enum Role {
 
-	public static final Role CONTROLLEUR = new Role();
-	public static final Role PROTECTEUR = new Role();
-	public static final Role MENEUR = new Role();
-	public static final Role COGNEUR = new Role();
+	CONTROLLEUR,
+	PROTECTEUR,
+	MENEUR,
+	COGNEUR
 
 }

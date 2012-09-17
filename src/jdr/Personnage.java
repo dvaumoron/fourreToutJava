@@ -1,5 +1,6 @@
 package jdr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Personnage {
@@ -9,6 +10,8 @@ public class Personnage {
 	private Classe classe;
 	private int niveau;
 
+	private int demiNiveau;
+
 	// Ability score
 	private int force;
 	private int constitution;
@@ -17,47 +20,312 @@ public class Personnage {
 	private int sagesse;
 	private int charisme;
 
+	private int forceMod;
+	private int constitutionMod;
+	private int dexteriteMod;
+	private int intelligenceMod;
+	private int sagesseMod;
+	private int charismeMod;
+
 	private List<Feature> features;
-	private List<Item> itemList;
+
+	private Armor armor;
+	private Shield shield;
+	private Weapon weapon;
+
+	// defenses
+	private int ca;
+	private int vigueur;
+	private int reflexe;
+	private int volonte;
+
+	private int initiative;
+
+	private int maxHP;
+	private int surgeValue;
+	private int surgeNumber;
+
+	// skills
+	private int acrobatics;
+	private int arcana;
+	private int athletics;
+	private int bluff;
+	private int diplomacy;
+	private int dungeoneering;
+	private int endurance;
+	private int heal;
+	private int history;
+	private int insight;
+	private int intimidate;
+	private int nature;
+	private int perception;
+	private int religion;
+	private int stealth;
+	private int streetwise;
+	private int thievery;
+
+	private int skillNumber;
+
+	private int speed;
+
+	private int attaque;
+	private String degats;
+
+	public Personnage(String nom, int niveau, int force, int constitution,
+			int dexterite, int intelligence, int sagesse, int charisme, String nomClasse,
+			String nomOption, String nomRace, String nomArmure, String nomBouclier,
+			String nomArme, String nomCarac, boolean acrobatics, boolean arcana,
+			boolean athletics, boolean bluff, boolean diplomacy, boolean dungeoneering,
+			boolean endurance, boolean heal, boolean history, boolean insight,
+			boolean intimidate, boolean nature, boolean perception, boolean religion,
+			boolean stealth, boolean streetwise, boolean thievery) {
+
+		this.nom = nom;
+		this.niveau = niveau;
+		this.force = force;
+		this.constitution = constitution;
+		this.dexterite = dexterite;
+		this.intelligence = intelligence;
+		this.sagesse = sagesse;
+		this.charisme = charisme;
+
+		classe = Classe.getClasseByName(nomClasse);
+		race = Race.getRaceByName(nomRace);
+		
+		int[] abilityBonus = race.getAbilityBonus();
+		this.force += abilityBonus[0];
+		this.constitution += abilityBonus[1];
+		this.dexterite += abilityBonus[2];
+		this.intelligence += abilityBonus[3];
+		this.sagesse += abilityBonus[4];
+		this.charisme += abilityBonus[5];
+
+		features = new ArrayList<Feature>();
+		features.addAll(classe.getClassFeatures());
+		features.addAll(race.getRaceFeatures());
+
+		ClasseOption classeOption = ClasseOption.getClasseOption(nomOption);
+		features.addAll(classeOption.getFeatures());
+
+		armor = Armor.getArmorByName(nomArmure);
+		shield = Shield.getShieldByName(nomBouclier);
+		weapon = Weapon.getWeaponByName(nomArme);
+
+		demiNiveau = niveau / 2;
+
+		forceMod = getMod(this.force);
+		constitutionMod = getMod(this.constitution);
+		dexteriteMod = getMod(this.dexterite);
+		intelligenceMod = getMod(this.intelligence);
+		sagesseMod = getMod(this.sagesse);
+		charismeMod = getMod(this.charisme);
+
+		ca = 10 + demiNiveau;
+		if (!armor.getArmorType().isHeavy()) {	
+			ca += Math.max(dexteriteMod, intelligenceMod);
+		}
+		ca += armor.getArmorBonus();
+		ca += shield.getShieldBonus();
+		for(Feature feature : features) {
+			ca += feature.getCABonus(this);
+		}
+
+		vigueur = 10 + demiNiveau + Math.max(forceMod, constitutionMod);
+		for(Feature feature : features) {
+			vigueur += feature.getVigueurBonus(this);
+		}
+		vigueur += classe.getBonusToDefense()[0];
+
+		reflexe = 10 + demiNiveau+ Math.max(dexteriteMod, intelligenceMod);
+		reflexe += shield.getShieldBonus();
+		for(Feature feature : features) {
+			reflexe += feature.getReflexeBonus(this);
+		}
+		reflexe += classe.getBonusToDefense()[1];
+
+		
+		volonte = 10 + demiNiveau + Math.max(sagesseMod, charismeMod);
+		for(Feature feature : features) {
+			volonte += feature.getVolonteBonus(this);
+		}
+		volonte += classe.getBonusToDefense()[2];
+
+		initiative = demiNiveau + dexteriteMod;
+		for(Feature feature : features) {
+			initiative += feature.getInitiativeBonus(this);
+		}
+
+		maxHP = classe.getHitPointAtFirstLevel() + constitution
+				+ (niveau - 1) * classe.getHitPointPerLevel();
+		for(Feature feature : features) {
+			maxHP += feature.getMaxHPBonus(this);
+		}
+
+		surgeValue = maxHP / 4;
+		for(Feature feature : features) {
+			surgeValue += feature.getSurgeValueBonus(this);
+		}
+		surgeNumber = classe.getHealingSurgesPerDay() + constitutionMod;
+		for(Feature feature : features) {
+			surgeNumber += feature.getSurgeNumberBonus(this);
+		}
+
+		int armorPenalty = armor.getArmorType().getCheck()
+				+ shield.getArmorType().getCheck();
+
+		skillNumber = classe.getSkillNumber() + classe.getTrainedSkills().size();
+
+		int[] skillBonus = race.getSkillBonus();
+		this.acrobatics = skillBonus[0];
+		if (acrobatics) {
+			this.acrobatics += 5;
+			skillNumber -= 1;
+		}
+		this.acrobatics += getDexteriteModDemi() + armorPenalty;
+		this.arcana = skillBonus[1];
+		if (arcana) {
+			this.arcana += 5;
+			skillNumber -= 1;
+		}
+		this.arcana += getIntelligenceModDemi();
+		this.athletics = skillBonus[2];
+		if (athletics) {
+			this.athletics += 5;
+			skillNumber -= 1;
+		}
+		this.athletics += getForceModDemi() + armorPenalty;
+		this.bluff = skillBonus[3];
+		if (bluff) {
+			this.bluff += 5;
+			skillNumber -= 1;
+		}
+		this.bluff += getCharismeModDemi();
+		this.diplomacy = skillBonus[4];
+		if (diplomacy) {
+			this.diplomacy += 5;
+			skillNumber -= 1;
+		}
+		this.diplomacy += getCharismeModDemi();
+		this.dungeoneering = skillBonus[5];
+		if (dungeoneering) {
+			this.dungeoneering += 5;
+			skillNumber -= 1;
+		}
+		this.dungeoneering += getSagesseModDemi();
+		this.endurance = skillBonus[6];
+		if (endurance) {
+			this.endurance += 5;
+			skillNumber -= 1;
+		}
+		this.endurance += getConstitutionModDemi() + armorPenalty;
+		this.heal = skillBonus[7];
+		if (heal) {
+			this.heal += 5;
+			skillNumber -= 1;
+		}
+		this.heal += getSagesseModDemi();
+		this.history = skillBonus[8];
+		if (history) {
+			this.history += 5;
+			skillNumber -= 1;
+		}
+		this.history += getIntelligenceModDemi();
+		this.insight = skillBonus[9];
+		if (insight) {
+			this.insight += 5;
+			skillNumber -= 1;
+		}
+		this.insight += getSagesseModDemi();
+		this.intimidate = skillBonus[10];
+		if (intimidate) {
+			this.intimidate += 5;
+			skillNumber -= 1;
+		}
+		this.intimidate += getCharismeModDemi();
+		this.nature = skillBonus[11];
+		if (nature) {
+			this.nature += 5;
+			skillNumber -= 1;
+		}
+		this.nature += getSagesseModDemi();
+		this.perception = skillBonus[12];
+		if (perception) {
+			this.perception += 5;
+			skillNumber -= 1;
+		}
+		this.perception += getSagesseModDemi();
+		this.religion = skillBonus[13];
+		if (religion) {
+			this.religion += 5;
+			skillNumber -= 1;
+		}
+		this.religion += getIntelligenceModDemi();
+		this.stealth = skillBonus[14];
+		if (stealth) {
+			this.stealth += 5;
+			skillNumber -= 1;
+		}
+		this.stealth += getDexteriteModDemi() + armorPenalty;
+		this.streetwise = skillBonus[15];
+		if (streetwise) {
+			this.streetwise += 5;
+			skillNumber -= 1;
+		}
+		this.streetwise += getCharismeModDemi();
+		this.thievery = skillBonus[16];
+		if (thievery) {
+			this.thievery += 5;
+			skillNumber -= 1;
+		}
+		this.thievery += getDexteriteModDemi() + armorPenalty;
+
+		speed = race.getSpeed() + armor.getArmorType().getSpeed();
+		for(Feature feature : features) {
+			speed += feature.getSpeedBonus(this);
+		}
+
+		Ability ability = Ability.getAbilityByName(nomCarac);
+		int abilityMod = ability.getAbility(
+				this.forceMod, this.constitutionMod, this.dexteriteMod,
+				this.intelligenceMod, this.sagesseMod, this.charismeMod);
+		attaque = demiNiveau + abilityMod + weapon.getProficiency();
+		int degatValue = abilityMod;
+		int diceSize = weapon.getDiceSize();
+		for (Feature feature : features) {
+			attaque += feature.getAttaqueBonus(this);
+			degatValue += feature.getDegatBonus(this);
+			diceSize += feature.getDiceSizeBonus(this);
+		}
+
+		degats = new StringBuilder().append(weapon.getDiceNumber()).append("d")
+				.append(diceSize).append(" + ").append(degatValue).toString();
+	}
+
+	public static int getMod(int score) {
+		return score / 2 - 5;
+	}
 
 	public String getNom() {
 		return nom;
 	}
 
-	public String getRace() {
-		return race.getNom();
+	public Race getRace() {
+		return race;
 	}
 
-	public String getClasse() {
-		return classe.getNom();
+	public Classe getClasse() {
+		return classe;
 	}
-	
+
 	public int getNiveau() {
 		return niveau;
 	}
 
 	public int getDemiNiveau() {
-		return niveau / 2;
+		return demiNiveau;
 	}
 
 	public int getCA() {
-		int ca = 10 + getDemiNiveau();
-		boolean lightArmor = true;
-		for(Item item : itemList) {
-			if (item.isHeavy()) {
-				lightArmor = false;
-				break;
-			}
-		}
-		if (lightArmor) {
-			ca += Math.max(getDexteriteMod(), getIntelligenceMod());
-		}
-		for(Item item : itemList) {
-			ca += item.getArmorBonus();
-		}
-		for(Feature feature : features) {
-			ca += feature.getCABonus(this);
-		}
 		return ca;
 	}
 
@@ -66,24 +334,26 @@ public class Personnage {
 	}
 
 	public int getForceMod() {
-		return getMod(force);
+		return forceMod;
 	}
-	
+
+	public int getForceModDemi() {
+		return forceMod + demiNiveau;
+	}
+
 	public int getConstitution() {
 		return constitution;
 	}
 
 	public int getConstitutionMod() {
-		return getMod(constitution);
+		return constitutionMod;
 	}
 
+	public int getConstitutionModDemi() {
+		return constitutionMod + demiNiveau;
+	}
+	
 	public int getVigueur() {
-		int vigueur = 10 + getDemiNiveau()
-				+ Math.max(getForceMod(), getConstitutionMod());
-		for(Feature feature : features) {
-			vigueur += feature.getVigueurBonus(this);
-		}
-		vigueur += classe.getBonusToDefense()[0];
 		return vigueur;
 	}
 
@@ -92,27 +362,26 @@ public class Personnage {
 	}
 
 	public int getDexteriteMod() {
-		return getMod(dexterite);
+		return dexteriteMod;
 	}
-	
+
+	public int getDexteriteModDemi() {
+		return dexteriteMod + demiNiveau;
+	}
+
 	public int getIntelligence() {
 		return intelligence;
 	}
 
 	public int getIntelligenceMod() {
-		return getMod(intelligence);
+		return intelligenceMod;
+	}
+
+	public int getIntelligenceModDemi() {
+		return intelligenceMod + demiNiveau;
 	}
 
 	public int getReflexe() {
-		int reflexe = 10 + getDemiNiveau()
-				+ Math.max(getDexteriteMod(), getIntelligenceMod());
-		for(Item item : itemList) {
-			reflexe += item.getReflexeBonus();
-		}
-		for(Feature feature : features) {
-			reflexe += feature.getReflexeBonus(this);
-		}
-		reflexe += classe.getBonusToDefense()[1];
 		return reflexe;
 	}
 
@@ -121,49 +390,159 @@ public class Personnage {
 	}
 
 	public int getSagesseMod() {
-		return getMod(sagesse);
+		return sagesseMod;
 	}
-	
+
+	public int getSagesseModDemi() {
+		return sagesseMod + demiNiveau;
+	}
+
 	public int getCharisme() {
 		return charisme;
 	}
 
 	public int getCharismeMod() {
-		return getMod(charisme);
+		return charismeMod;
+	}
+
+	public int getCharismeModDemi() {
+		return charismeMod + demiNiveau;
 	}
 
 	public int getVolonte() {
-		int volonte = 10 + getDemiNiveau()
-				+ Math.max(getSagesseMod(), getCharismeMod());
-		for(Feature feature : features) {
-			volonte += feature.getVolonteBonus(this);
-		}
-		volonte += classe.getBonusToDefense()[2];
 		return volonte;
 	}
 
 	public int getMaxHP() {
-		int maxHP = classe.getHitPointAtFirstLevel() + getConstitution()
-				+ (getNiveau() - 1) * classe.getHitPointPerLevel();
-		for(Feature feature : features) {
-			maxHP += feature.getMaxHPBonus(this);
-		}
 		return maxHP;
 	}
 
 	public int getBloodiedHP() {
-		return getMaxHP() / 2; 
+		return maxHP / 2; 
 	}
 	
 	public int getSurgeValue() { 
-		int surgeValue = getMaxHP() / 4;
-		for(Feature feature : features) {
-			surgeValue += feature.getSurgeValueBonus(this);
-		}
 		return surgeValue;
 	}
 
-	private static int getMod(int score) {
-		return score / 2 - 5;
+	public int getSurgesByDay() {
+		return surgeNumber;
 	}
+
+	public int getInitiative() {
+		return initiative;
+	}
+
+	public List<Feature> getFeatures() {
+		return features;
+	}
+
+	public Armor getArmor() {
+		return armor;
+	}
+
+	public Shield getShield() {
+		return shield;
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public int getAcrobatics() {
+		return acrobatics;
+	}
+
+	public int getArcana() {
+		return arcana;
+	}
+
+	public int getAthletics() {
+		return athletics;
+	}
+
+	public int getBluff() {
+		return bluff;
+	}
+
+	public int getDiplomacy() {
+		return diplomacy;
+	}
+
+	public int getDungeoneering() {
+		return dungeoneering;
+	}
+
+	public int getEndurance() {
+		return endurance;
+	}
+
+	public int getHeal() {
+		return heal;
+	}
+
+	public int getHistory() {
+		return history;
+	}
+
+	public int getInsight() {
+		return insight;
+	}
+
+	public int getIntimidate() {
+		return intimidate;
+	}
+
+	public int getNature() {
+		return nature;
+	}
+
+	public int getPerception() {
+		return perception;
+	}
+
+	public int getReligion() {
+		return religion;
+	}
+
+	public int getStealth() {
+		return stealth;
+	}
+
+	public int getStreetwise() {
+		return streetwise;
+	}
+
+	public int getThievery() {
+		return thievery;
+	}
+
+	public int getSkillNumber() {
+		return skillNumber;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public int getPassiveInsight() {
+		return 10 + insight;
+	}
+
+	public int getPassivePerception() {
+		return 10 + perception;
+	}
+
+	public List<Language> getLanguages() {
+		return race.getLanguages();
+	}
+
+	public int getAttaque() {
+		return attaque;
+	}
+
+	public String getDegats() {
+		return degats;
+	}
+
 }

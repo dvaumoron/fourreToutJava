@@ -2,6 +2,11 @@ package jdr;
 
 public enum Size {
 
+	TINY,
 	SMALL,
-	MEDIUM
+	MEDIUM,
+	LARGE,
+	HUGE,
+	GARGANTUAN
+
 }
