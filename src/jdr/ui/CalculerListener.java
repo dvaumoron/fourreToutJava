@@ -34,9 +34,10 @@ public class CalculerListener implements ActionListener {
 			String nomOption = (String) frame.getChoixClasseOption().getSelectedItem();
 			String nomRace = (String) frame.getChoixRace().getSelectedItem();
 			String nomArmure = (String) frame.getChoixArmure().getSelectedItem();
-			String nomBouclier = (String) frame.getChoixBouclier().getSelectedItem();
 			String nomArme = (String) frame.getChoixArme().getSelectedItem();
+			String nomMainGauche = (String) frame.getChoixMainGauche().getSelectedItem();
 			String nomCarac = (String) frame.getChoixCarac().getSelectedItem();
+			String nomArmeMagique = (String) frame.getChoixArmeMagique().getSelectedItem();
 			boolean acrobatics = frame.getBoxAcrobatics().isSelected();
 			boolean arcana = frame.getBoxArcana().isSelected();
 			boolean athletics = frame.getBoxAthletics().isSelected();
@@ -57,10 +58,11 @@ public class CalculerListener implements ActionListener {
 
 			Personnage personnage = new Personnage(
 					nom, niveau, force, constitution, dexterite, intelligence, sagesse,
-					charisme, nomClasse, nomOption, nomRace, nomArmure, nomBouclier,
-					nomArme, nomCarac, acrobatics, arcana, athletics, bluff, diplomacy,
-					dungeoneering, endurance, heal, history, insight, intimidate, nature,
-					perception, religion, stealth, streetwise, thievery);
+					charisme, nomClasse, nomOption, nomRace, nomArmure, nomArme,
+					nomMainGauche, nomCarac, nomArmeMagique, acrobatics, arcana,
+					athletics, bluff, diplomacy, dungeoneering, endurance, heal, history,
+					insight, intimidate, nature, perception, religion, stealth, streetwise,
+					thievery);
 
 			frame.getValeurForce().setText(Integer.toString(personnage.getForce()));
 			frame.getValeurConstitution().setText(Integer.toString(personnage.getConstitution()));
@@ -133,6 +135,12 @@ public class CalculerListener implements ActionListener {
 
 			frame.getValeurAttaque().setText(Integer.toString(personnage.getAttaque()));
 			frame.getValeurDegat().setText(personnage.getDegats());
+			frame.getValeurAttaqueGauche().setText(Integer.toString(personnage.getAttaqueGauche()));
+			frame.getValeurDegatGauche().setText(personnage.getDegatsGauche());
+
+			frame.getValeurSize().setText(personnage.getSize());
+			frame.getValeurPoids().setText(personnage.getPoids());
+			frame.getValeurTaille().setText(personnage.getTaille());
 		}
 	}
 

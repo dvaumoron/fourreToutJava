@@ -32,6 +32,7 @@ public class Personnage {
 	private Armor armor;
 	private Shield shield;
 	private Weapon weapon;
+	private Weapon leftWeapon;
 
 	// defenses
 	private int ca;
@@ -70,15 +71,18 @@ public class Personnage {
 
 	private int attaque;
 	private String degats;
+	private int attaqueGauche;
+	private String degatsGauche;
 
 	public Personnage(String nom, int niveau, int force, int constitution,
 			int dexterite, int intelligence, int sagesse, int charisme, String nomClasse,
-			String nomOption, String nomRace, String nomArmure, String nomBouclier,
-			String nomArme, String nomCarac, boolean acrobatics, boolean arcana,
-			boolean athletics, boolean bluff, boolean diplomacy, boolean dungeoneering,
-			boolean endurance, boolean heal, boolean history, boolean insight,
-			boolean intimidate, boolean nature, boolean perception, boolean religion,
-			boolean stealth, boolean streetwise, boolean thievery) {
+			String nomOption, String nomRace, String nomArmure, String nomArme,
+			String nomMainGauche, String nomCarac, String nomArmeMagique,
+			boolean acrobatics, boolean arcana, boolean athletics, boolean bluff,
+			boolean diplomacy, boolean dungeoneering, boolean endurance, boolean heal,
+			boolean history, boolean insight, boolean intimidate, boolean nature,
+			boolean perception, boolean religion, boolean stealth, boolean streetwise,
+			boolean thievery) {
 
 		this.nom = nom;
 		this.niveau = niveau;
@@ -101,15 +105,28 @@ public class Personnage {
 		this.charisme += abilityBonus[5];
 
 		features = new ArrayList<Feature>();
+
+		if (classe instanceof DemiClasse) {
+			classe = new HybridClasse((DemiClasse) classe,
+					(DemiClasse) Classe.getClasseByName(nomOption));
+		} else {
+			ClasseOption classeOption = ClasseOption.getClasseOption(nomOption);
+			features.addAll(classeOption.getFeatures());
+		}
+
 		features.addAll(classe.getClassFeatures());
 		features.addAll(race.getRaceFeatures());
-
-		ClasseOption classeOption = ClasseOption.getClasseOption(nomOption);
-		features.addAll(classeOption.getFeatures());
-
+		
 		armor = Armor.getArmorByName(nomArmure);
-		shield = Shield.getShieldByName(nomBouclier);
+		shield = Shield.getShieldByName(nomMainGauche);
+		if (shield == null) {
+			shield = Shield.NONE;
+		}
 		weapon = Weapon.getWeaponByName(nomArme);
+		leftWeapon = Weapon.getWeaponByName(nomMainGauche);
+		if (leftWeapon == null) {
+			leftWeapon = Weapon.UNARMED_ATTACK;
+		}
 
 		demiNiveau = niveau / 2;
 
@@ -288,8 +305,11 @@ public class Personnage {
 		int abilityMod = ability.getAbility(
 				this.forceMod, this.constitutionMod, this.dexteriteMod,
 				this.intelligenceMod, this.sagesseMod, this.charismeMod);
-		attaque = demiNiveau + abilityMod + weapon.getProficiency();
-		int degatValue = abilityMod;
+
+		int itemBonus = MagicalWeapon.getWeaponByName(nomArmeMagique).getBonus();
+
+		attaque = demiNiveau + abilityMod + weapon.getProficiency() + itemBonus;
+		int degatValue = abilityMod + itemBonus;
 		int diceSize = weapon.getDiceSize();
 		for (Feature feature : features) {
 			attaque += feature.getAttaqueBonus(this);
@@ -298,6 +318,18 @@ public class Personnage {
 		}
 
 		degats = new StringBuilder().append(weapon.getDiceNumber()).append("d")
+				.append(diceSize).append(" + ").append(degatValue).toString();
+		
+		attaqueGauche = demiNiveau + abilityMod + leftWeapon.getProficiency() + itemBonus;
+		degatValue = abilityMod + itemBonus;
+		diceSize = leftWeapon.getDiceSize();
+		for (Feature feature : features) {
+			attaqueGauche += feature.getAttaqueGaucheBonus(this);
+			degatValue += feature.getDegatGaucheBonus(this);
+			diceSize += feature.getDiceSizeGaucheBonus(this);
+		}
+
+		degatsGauche = new StringBuilder().append(leftWeapon.getDiceNumber()).append("d")
 				.append(diceSize).append(" + ").append(degatValue).toString();
 	}
 
@@ -449,6 +481,10 @@ public class Personnage {
 		return weapon;
 	}
 
+	public Weapon getLeftWeapon() {
+		return leftWeapon;
+	}
+
 	public int getAcrobatics() {
 		return acrobatics;
 	}
@@ -543,6 +579,26 @@ public class Personnage {
 
 	public String getDegats() {
 		return degats;
+	}
+
+	public int getAttaqueGauche() {
+		return attaqueGauche;
+	}
+
+	public String getDegatsGauche() {
+		return degatsGauche;
+	}
+
+	public String getSize() {
+		return race.getSize().getDisplay();
+	}
+
+	public String getPoids() {
+		return race.getAverageWeight();
+	}
+
+	public String getTaille() {
+		return race.getAverageHeight();
 	}
 
 }

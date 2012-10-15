@@ -8,13 +8,17 @@ public enum Feature {
 
 	// cleric feature
 	CHANEL_DIVINITY,
+	CHANNEL_DIVINITY_TURN_UNDEAD,
+	CHANNEL_DIVINITY_HEALERS_MERCY,
 	HEALERS_LORE,
 	HEALING_WORD,
 	RITUAL_CASTING,
+	HEALING_WORD_HYBRID,
 
 	// fighter feature
 	COMBAT_CHALLENGE,
 	COMBAT_SUPERIORITY,
+	COMBAT_AGILITY,
 	FIGHTER_WEAPON_TALENT,
 	FIGHTER_WEAPON_TALENT_ONE_HANDED {
 		public int getAttaqueBonus(Personnage personnage) {
@@ -25,6 +29,9 @@ public enum Feature {
 				bonus = 1;
 			}
 			return bonus;
+		}
+		public int getAttaqueGaucheBonus(Personnage personnage) {
+			return 1;
 		}
 	},
 	FIGHTER_WEAPON_TALENT_TWO_HANDED {
@@ -38,22 +45,98 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	BATTLERAGER_VIGOR,
+	TEMPEST_TECHNIQUE,
+	BRAWLER_STYLE {
+		public int getAttaqueBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getWeapon().equals(Weapon.UNARMED_ATTACK)) {
+				bonus = 2 * getTiers(personnage.getNiveau());
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		public int getAttaqueGaucheBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getLeftWeapon().equals(Weapon.UNARMED_ATTACK)) {
+				bonus = 2 * getTiers(personnage.getNiveau());
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			if (hasBrawlerStyleBonus(personnage)) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		public int getVigueurBonus(Personnage personnage) {
+			int bonus;
+			if (hasBrawlerStyleBonus(personnage)) {
+				bonus = 2;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		private boolean hasBrawlerStyleBonus(Personnage personnage) {
+			return !personnage.getWeapon().isTwoHanded()
+					&& personnage.getLeftWeapon().equals(Weapon.UNARMED_ATTACK)
+					&& personnage.getShield().equals(Shield.NONE);
+		}
+	},
+	COMBAT_CHALLENGE_HYBRID,
 
 	// paladin feature
 	DIVINE_CHALLENGE,
 	LAY_ON_HANDS,
+	ARDENT_VOW,
+	VIRTUES_TOUCH,
+	DIVINE_CHALLENGE_HYBRID,
 
 	// ranger feature
 	FIGHTING_STYLE,
-	ONE_HANDED_IN_OFFHAND,
+	ONE_HANDED_IN_OFFHAND {
+		public boolean isOneHandedInOffhand() {
+			return true;
+		}
+	},
 	HUNTERS_QUARRY,
 	PRIME_SHOT,
+	BEAST_MASTERY,
+	HUNTER_FIGHTING_STYLE,
+	RUNNING_ATTACK,
+	MARAUDER_FIGHTING_STYLE {
+		@Override
+		public int getSpeedBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getShield().equals(Shield.NONE)
+					&& !personnage.getWeapon().isTwoHanded()) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+	},
+	HUNTERS_QUARRY_HYBRID,
 
 	// rogue feature
 	FIRST_STRIKE,
 	ROGUE_TACTICS,
 	ROGUE_TACTICS_ARTFUL_DODGER,
 	ROGUE_TACTICS_BRUTAL_SCOUNDREL,
+	ROGUE_TACTICS_RUTHLESS_RUFFIAN {
+		public List<Weapon> getWeaponProficiencies() {
+			return Arrays.asList(Weapon.CLUB, Weapon.MACE);
+		}
+	},
+	ROGUE_TACTICS_CUNNING_SNEAK,
 	ROGUE_WEAPON_TALENT {
 		public int getAttaqueBonus(Personnage personnage) {
 			int bonus;
@@ -64,7 +147,15 @@ public enum Feature {
 			}
 			return bonus;
 		}
-
+		public int getAttaqueGaucheBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getLeftWeapon().equals(Weapon.DAGGER)) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
 		public int getDiceSizeBonus(Personnage personnage) {
 			int bonus;
 			if (personnage.getWeapon().equals(Weapon.SHURIKEN)) {
@@ -74,8 +165,42 @@ public enum Feature {
 			}
 			return bonus;
 		}
+		public int getDiceSizeGaucheBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getLeftWeapon().equals(Weapon.SHURIKEN)) {
+				bonus = 2;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+	},
+	SHARPSHOOTER_TALENT {
+		public int getAttaqueBonus(Personnage personnage) {
+			int bonus;
+			List<WeaponGroup> group = personnage.getWeapon().getGroup();
+			if (group.contains(WeaponGroup.CROSSBOW)
+					|| group.contains(WeaponGroup.SLING)) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		public int getAttaqueGaucheBonus(Personnage personnage) {
+			int bonus;
+			List<WeaponGroup> group = personnage.getLeftWeapon().getGroup();
+			if (group.contains(WeaponGroup.CROSSBOW)
+					|| group.contains(WeaponGroup.SLING)) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
 	},
 	SNEAK_ATTACK,
+	SNEAK_ATTACK_HYBRID,
 
 	// warlock feature
 	ELDRITCH_BLAST,
@@ -83,8 +208,12 @@ public enum Feature {
 	FEY_PACT,
 	INFERNAL_PACT,
 	STAR_PACT,
+	VESTIGE_PACT,
+	DARK_PACT,
 	SHADOW_WALK,
 	WARLOCKS_CURSE,
+	ELDRITCH_PACT_HYBRID,
+	WARLOCKS_CURSE_HYBRID,
 
 	// warlord feature
 	COMBAT_LEADER {
@@ -95,7 +224,13 @@ public enum Feature {
 	COMMANDING_PRESENCE,
 	INSPIRING_PRESENCE,
 	TACTICAL_PRESENCE,
+	BRAVURA_PRESENCE,
+	RESOURCEFUL_PRESENCE,
+	INSIGHTFUL_PRESENCE,
+	SKIRMISHING_PRESENCE,
 	INSPIRING_WORD,
+	INSPIRING_WORD_HYBRID,
+	WARLORD_LEADERSHIP,
 
 	// wizard feature
 	ARCANE_IMPLEMENT_MASTERY,
@@ -112,6 +247,9 @@ public enum Feature {
 		}
 	},
 	ARCANE_IMPLEMENT_MASTERY_WAND_OF_ACCURACY,
+	ARCANE_IMPLEMENT_MASTERY_ORB_OF_DECEPTION,
+	ARCANE_IMPLEMENT_MASTERY_TOME_OF_BINDING,
+	ARCANE_IMPLEMENT_MASTERY_TOME_OF_READINESS,
 	CANTRIPS,
 	SPELLBOOK,
 
@@ -132,7 +270,9 @@ public enum Feature {
 	AVENGERS_CENSURE,
 	CENSURE_OF_PURSUIT,
 	CENSURE_OF_RETRIBUTION,
+	CENSURE_OF_UNITY,
 	OATH_OF_ENMMITY,
+	OATH_OF_ENMMITY_HYBRID,
 
 	// barbarian feature
 	BARBARIAN_AGILITY{
@@ -158,6 +298,8 @@ public enum Feature {
 	FERAL_MIGHT,
 	FERAL_MIGHT_RAGEBLOOD_VIGOR,
 	FERAL_MIGHT_THANEBORN_TRIUMPH,
+	FERAL_MIGHT_THUNDERBORN_WRATH,
+	FERAL_MIGHT_WHIRLWIND_SLAYER,
 	RAGE_STRIKE,
 	RAMPAGE,
 
@@ -166,11 +308,13 @@ public enum Feature {
 	BARDIC_VIRTUE,
 	VIRTUE_OF_CUNNING,
 	VIRTUE_OF_VALOR,
+	VIRTUE_OF_PRESCIENCE,
 	MAJESTIC_WORD,
 	MULTICLASS_VERSATILITY,
 	SKILL_VERSATILITY,
 	SONG_OF_REST,
 	WORDS_OF_FRIENDSHIP,
+	MAJESTIC_WORD_HYBRID,
 
 	// druid feature
 	BALANCE_OF_NATURE,
@@ -201,19 +345,26 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	PRIMAL_SWARM,
 	WILD_SHAPE,
 
 	// invoker feature
 	DIVINE_COVENANT,
 	COVENANT_OF_PRESERVATION,
 	COVENANT_OF_WRATH,
+	COVENANT_OF_MALEDICTION,
+	COVENANT_MANIFESTATION,
 
 	// shaman feature
 	COMPANION_SPIRIT,
 	PROTECTOR_SPIRIT,
 	STALKER_SPIRIT,
+	WATCHER_SPIRIT,
+	WORLD_SPEAKER_SPIRIT,
 	HEALING_SPIRIT,
 	SPEAK_WITH_SPIRITS,
+	COMPANION_SPIRIT_HYBRID,
+	HEALING_SPIRIT_HYBRID,
 
 	// sorcerer feature
 	SPELL_SOURCE,
@@ -235,11 +386,70 @@ public enum Feature {
 			return personnage.getForceMod()
 					+ 2 * (getTiers(personnage.getNiveau()) - 1);
 		}
+		public int getDegatGaucheBonus(Personnage personnage) {
+			return getDegatBonus(personnage);
+		}
 	},
 	SPELL_SOURCE_WILD_MAGIC {
 		public int getDegatBonus(Personnage personnage) {
 			return personnage.getDexteriteMod()
 					+ 2 * (getTiers(personnage.getNiveau()) - 1);
+		}
+		public int getDegatGaucheBonus(Personnage personnage) {
+			return getDegatBonus(personnage);
+		}
+	},
+	SPELL_SOURCE_STORM_MAGIC {
+		public int getDegatBonus(Personnage personnage) {
+			return personnage.getDexteriteMod()
+					+ 2 * (getTiers(personnage.getNiveau()) - 1);
+		}
+		public int getDegatGaucheBonus(Personnage personnage) {
+			return getDegatBonus(personnage);
+		}
+	},
+	SPELL_SOURCE_COSMIC_MAGIC {
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getArmor().getArmorType().isHeavy()) {
+				bonus = 0;
+			} else {
+				int maxDexInt = Math.max(personnage.getDexteriteMod(),
+						personnage.getIntelligenceMod());
+				bonus = Math.max(personnage.getForceMod(), maxDexInt)
+						- maxDexInt;
+			}
+			return bonus;
+		}
+
+		public int getDegatBonus(Personnage personnage) {
+			return personnage.getForceMod()
+					+ 2 * (getTiers(personnage.getNiveau()) - 1);
+		}
+		public int getDegatGaucheBonus(Personnage personnage) {
+			return getDegatBonus(personnage);
+		}
+	},
+	SORCEROUS_POWER {
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getArmor().getArmorType().isHeavy()) {
+				bonus = 0;
+			} else {
+				int maxDexInt = Math.max(personnage.getDexteriteMod(),
+						personnage.getIntelligenceMod());
+				bonus = Math.max(personnage.getForceMod(), maxDexInt)
+						- maxDexInt;
+			}
+			return bonus;
+		}
+
+		public int getDegatBonus(Personnage personnage) {
+			return Math.max(personnage.getForceMod(), personnage.getDexteriteMod())
+					+ 2 * (getTiers(personnage.getNiveau()) - 1);
+		}
+		public int getDegatGaucheBonus(Personnage personnage) {
+			return getDegatBonus(personnage);
 		}
 	},
 
@@ -274,20 +484,55 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	GUARDIAN_MIGHT_LIFESPIRIT {
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getArmor().getArmorType().isHeavy()) {
+				bonus = 0;
+			} else {
+				int maxDexInt = Math.max(personnage.getDexteriteMod(),
+						personnage.getIntelligenceMod());
+				bonus = Math.max(personnage.getSagesseMod(), maxDexInt)
+						- maxDexInt;
+			}
+			return bonus;
+		}
+	},
+	GUARDIAN_MIGHT_STORMHEART {
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getArmor().getArmorType().isHeavy()) {
+				bonus = 0;
+			} else {
+				int maxDexInt = Math.max(personnage.getDexteriteMod(),
+						personnage.getIntelligenceMod());
+				bonus = Math.max(personnage.getConstitutionMod(), maxDexInt)
+						- maxDexInt;
+			}
+			return bonus;
+		}
+	},
 	NATURES_WRATH,
+	NATURES_WRATH_HYBRID,
 
 	// ardent feature
 	ARDENT_MANTLE,
 	MANTLE_OF_CLARITY,
 	MANTLE_OF_ELATION,
+	MANTLE_OF_IMPULSIVENESS,
 	ARDENT_SURGE,
 	PSIONIC_AUGMENTATION,
+	ARDENT_MANTLE_HYBRID,
+	ARDENT_SURGE_HYBRID,
+	PSIONIC_AUGMENTATION_HYBRID,
 
 	// battlemind feature
 	PSIONIC_DEFENSE,
 	PSIONIC_STUDY,
 	PSIONIC_STUDY_BATTLE_RESILIENCE,
 	PSIONIC_STUDY_SPEED_OF_THOUGHT,
+	PSIONIC_STUDY_PERSISTENT_HARRIER,
+	PSIONIC_DEFENSE_HYBRID,
 
 	// monk feature
 	MONASTIC_TRADITION,
@@ -299,6 +544,19 @@ public enum Feature {
 	MONASTIC_TRADITION_STONE_FIST {
 		public int getVolonteBonus(Personnage personnage) {
 			return getTiers(personnage.getNiveau());
+		}
+	},
+	MONASTIC_TRADITION_IRON_SOUL {
+		public int getCABonus(Personnage personnage) {
+			int bonus;
+			Weapon weapon = personnage.getWeapon();
+			if (weapon.equals(Weapon.UNARMED_ATTACK)
+					|| weapon.equals(Weapon.MONK_UNARMED_STRIKE)) {
+				bonus = 0;
+			} else {
+				bonus = 1;
+			}
+			return bonus;
 		}
 	},
 	UNARMED_COMBATANT,
@@ -315,11 +573,14 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	MONASTIC_TRADITION_HYBRID,
 
 	// psion feature
 	DISCIPLINE_FOCUS,
 	TELEKINESIS_FOCUS,
 	TELEPATHY_FOCUS,
+	SHAPER_FOCUS,
+	DISCIPLINE_FOCUS_HYBRID,
 
 	// runepriest feature
 	RUNE_MASTER,
@@ -331,6 +592,7 @@ public enum Feature {
 			return Arrays.asList(Weapon.THROWING_HAMMER, Weapon.WARHAMMER, Weapon.MAUL);
 		}
 	},
+	RUNE_OF_MENDING_HYBRID,
 
 	// seeker feature
 	INEVITABLE_SHOT,
@@ -340,6 +602,17 @@ public enum Feature {
 		public int getAttaqueBonus(Personnage personnage) {
 			int bonus;
 			List<WeaponProperty> properties = personnage.getWeapon().getProperties();
+			if (properties.contains(WeaponProperty.HEAVY_THROWN)
+					|| properties.contains(WeaponProperty.LIGHT_THROWN)) {
+				bonus = 1;
+			} else {
+				bonus = 0;
+			}
+			return bonus;
+		}
+		public int getAttaqueGaucheBonus(Personnage personnage) {
+			int bonus;
+			List<WeaponProperty> properties = personnage.getLeftWeapon().getProperties();
 			if (properties.contains(WeaponProperty.HEAVY_THROWN)
 					|| properties.contains(WeaponProperty.LIGHT_THROWN)) {
 				bonus = 1;
@@ -361,22 +634,27 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	INEVITABLE_SHOT_HYBRID,
+	SEEKERS_BOND_HYBRID,
 
 	// artificier feature
 	ARCANE_EMPOWERMENT,
 	ARCANE_REJUVENATION,
 	HEALING_INFUSION,
+	HEALING_INFUSION_HYBRID,
 
 	// swordmage feature
 	SWORDBOND,
 	SWORDMAGE_AEGIS,
 	AEGIS_OF_ASSAULT,
 	AEGIS_OF_SHIELDING,
+	AEGIS_OF_ENSNAREMENT,
 	SWORDMAGE_WARDING {
 		public int getCABonus(Personnage personnage) {
 			int bonus;
 			if (personnage.getShield().equals(Shield.NONE)
-					&& !personnage.getWeapon().isTwoHanded()) {
+					&& !personnage.getWeapon().isTwoHanded()
+					&& personnage.getLeftWeapon().equals(Weapon.UNARMED_ATTACK)) {
 				// if one hand free
 				bonus = 3;
 			} else {
@@ -385,6 +663,7 @@ public enum Feature {
 			return bonus;
 		}
 	},
+	SWORDMAGE_AEGIS_HYBRID,
 
 	// dragonborn feature
 	DRAGONBORN_FURY,
@@ -604,7 +883,31 @@ public enum Feature {
 			return getTiers(personnage.getNiveau()) * 5;
 		}
 	},
-	DEFENSIVE_MOBILITY;
+	DEFENSIVE_MOBILITY,
+	QUICK_DRAW {
+		public int getInitiativeBonus(Personnage personnage) {
+			return 2;
+		}
+	},
+	TWO_WEAPON_DEFENSE {
+		public int getCABonus(Personnage personnage) {
+			return getTwoWeaponDefenseBonus(personnage);
+		}
+		public int getReflexeBonus(Personnage personnage) {
+			return getTwoWeaponDefenseBonus(personnage);
+		}
+		private int getTwoWeaponDefenseBonus(Personnage personnage) {
+			int bonus;
+			if (personnage.getWeapon().equals(Weapon.UNARMED_ATTACK)
+					|| personnage.getLeftWeapon().equals(Weapon.UNARMED_ATTACK)) {
+				bonus = 0;
+			} else {
+				bonus = 1;
+			}
+			return bonus;
+		}
+	},
+	FAR_SHOT;
 
 	public int getSurgeValueBonus(Personnage personnage) {
 		return 0;
@@ -656,6 +959,22 @@ public enum Feature {
 
 	public int getDiceSizeBonus(Personnage personnage) {
 		return 0;
+	}
+
+	public int getAttaqueGaucheBonus(Personnage personnage) {
+		return 0;
+	}
+
+	public int getDegatGaucheBonus(Personnage personnage) {
+		return 0;
+	}
+
+	public int getDiceSizeGaucheBonus(Personnage personnage) {
+		return 0;
+	}
+
+	public boolean isOneHandedInOffhand() {
+		return false;
 	}
 
 	public static int getTiers(int niveau) {

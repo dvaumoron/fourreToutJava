@@ -122,7 +122,7 @@ public enum Race {
 					Feature.IMMORTAL_ORIGIN, Feature.MEMORY_OF_A_THOUSAND_LIFETIMES)),
 
 	GNOME (
-			"Gnome", " m à  m", "25 à 37 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Gnome", "1,1 m à 1,2 m", "25 à 37 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.SMALL, 5, Vision.LOW_LIGHT,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, // arcana, stealth
@@ -131,7 +131,7 @@ public enum Race {
 					Feature.FADE_AWAY)),
 
 	GOLIATH_DWARVEN (
-			"Goliath(Nain)", "2,35 m à 2,5 m", "140 à 170 kg" , new int[]{2, 2, 0, 0, 0, 0},
+			"Goliath(Nain)", "2,4 m à 2,5 m", "140 à 170 kg" , new int[]{2, 2, 0, 0, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DWARVEN),
 			new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // athletics, nature
@@ -139,7 +139,7 @@ public enum Race {
 					Feature.STONES_ENDURANCE)),
 
 	GOLIATH_GIANT (
-			"Goliath(Géant)", "2,35 m à 2,5 m", "140 à 170 kg" , new int[]{2, 2, 0, 0, 0, 0},
+			"Goliath(Géant)", "2,4 m à 2,5 m", "140 à 170 kg" , new int[]{2, 2, 0, 0, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.GIANT),
 			new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // athletics, nature
@@ -147,7 +147,7 @@ public enum Race {
 					Feature.STONES_ENDURANCE)),
 
 	HALF_ORC (
-			"Demi-orc", "1,9 m à 2,1 m", "78 à 112 kg" , new int[]{2, 0, 2, 0, 0, 0},
+			"Demi-orc", "1,9 m à 2,1 m", "77 à 112 kg" , new int[]{2, 0, 2, 0, 0, 0},
 			Size.MEDIUM, 6, Vision.LOW_LIGHT,
 			Arrays.asList(Language.COMMON, Language.GIANT),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, // endurance, intimidate
@@ -155,21 +155,21 @@ public enum Race {
 					Feature.FURIOUS_ASSAULT)),
 
 	LONGTOOTH_SHIFTER (
-			"Féral longue-dent", "1,9 m à 2,1 m", "65 à 90 kg" , new int[]{2, 0, 0, 0, 2, 0},
+			"Féral longue-dent", "1,8 m à 2  m", "65 à 90 kg" , new int[]{2, 0, 0, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.LOW_LIGHT,
 			Arrays.asList(Language.COMMON, Language.CHOICE),
 			new int[]{0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // athletics, endurance
 			Arrays.asList(Feature.LONGTOOTH_SHIFTING)),
 
 	RAZORCLAW_SHIFTER (
-			"Féral griffe-éfilée", "1,9 m à 2,1 m", "65 à 90 kg" , new int[]{0, 0, 2, 0, 2, 0},
+			"Féral griffe-éfilée", "1,8 m à 2 m", "65 à 90 kg" , new int[]{0, 0, 2, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.LOW_LIGHT,
 			Arrays.asList(Language.COMMON, Language.CHOICE),
 			new int[]{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, // acrobatics, stealth
 			Arrays.asList(Feature.RAZORCLAW_SHIFTING)),
 	
 	GITHZERAI_DEXTERITY (
-			"Githzerai(Dextérité)", " m à  m", "80 à 95 kg" , new int[]{0, 0, 2, 0, 2, 0},
+			"Githzerai(Dextérité)", "1,8 m à 1,95 m", "80 à 95 kg" , new int[]{0, 0, 2, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH),
 			new int[]{2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // acrobatics, athletics
@@ -177,7 +177,7 @@ public enum Race {
 					Feature.SHIFTING_FORTUNES, Feature.IRON_MIND)),
 
 	GITHZERAI_INTELLIGENCE (
-			"Githzerai(Intelligence)", " m à  m", "80 à 95 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Githzerai(Intelligence)", "1,8 m à 1,95 m", "80 à 95 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH),
 			new int[]{2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // acrobatics, athletics
@@ -185,7 +185,7 @@ public enum Race {
 					Feature.SHIFTING_FORTUNES, Feature.IRON_MIND)),
 
 	MINOTAUR_CONSTITUTION (
-			"Minotaure(Constitution)", " m à  m", "160 à 175 kg" , new int[]{2, 2, 0, 0, 0, 0},
+			"Minotaure(Constitution)", "2,15 m à 2,3 m", "160 à 175 kg" , new int[]{2, 2, 0, 0, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.CHOICE),
 			new int[]{2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, // nature, perception
@@ -193,7 +193,7 @@ public enum Race {
 					Feature.HEEDLESS_CHARGE, Feature.GORING_CHARGE)),
 
 	MINOTAUR_WISDOM (
-			"Minotaure(Sagesse)", " m à  m", "160 à 175 kg" , new int[]{2, 0, 0, 0, 2, 0},
+			"Minotaure(Sagesse)", "2,15 m à 2,3 m", "160 à 175 kg" , new int[]{2, 0, 0, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.CHOICE),
 			new int[]{2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0}, // nature, perception
@@ -201,7 +201,7 @@ public enum Race {
 					Feature.HEEDLESS_CHARGE, Feature.GORING_CHARGE)),
 
 	SHARDMIND_WISDOM_ACROBATICS (
-			"Cristallien(Sagesse, Acrobaties)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Acrobaties)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -210,7 +210,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_ATHLETICS (
-			"Cristallien(Sagesse, Athlétisme)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Athlétisme)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -219,7 +219,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_BLUFF (
-			"Cristallien(Sagesse, Bluff)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Bluff)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -228,7 +228,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_DIPLOMACY (
-			"Cristallien(Sagesse, Diplomatie)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Diplomatie)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -237,7 +237,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_DUNGEONEERING (
-			"Cristallien(Sagesse, Exploration)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Exploration)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -246,7 +246,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_HEAL (
-			"Cristallien(Sagesse, Soins)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Soins)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -255,7 +255,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_HISTORY (
-			"Cristallien(Sagesse, Histoire)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Histoire)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -264,7 +264,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_INSIGHT (
-			"Cristallien(Sagesse, Intuition)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Intuition)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -273,7 +273,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_INTIMIDATE (
-			"Cristallien(Sagesse, Acrobaties)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Acrobaties)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -282,7 +282,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_NATURE (
-			"Cristallien(Sagesse, Nature)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Nature)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -291,7 +291,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_PERCEPTION (
-			"Cristallien(Sagesse, Perception)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Perception)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -300,7 +300,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_RELIGION (
-			"Cristallien(Sagesse, Religion)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Religion)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, // arcana, endurance, one other
@@ -309,7 +309,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_STEALTH (
-			"Cristallien(Sagesse, Discrétion)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Discrétion)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, // arcana, endurance, one other
@@ -318,7 +318,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_STREETWISE (
-			"Cristallien(Sagesse, Connais. de la rue)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Connais. de la rue)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}, // arcana, endurance, one other
@@ -327,7 +327,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_WISDOM_THIEVERY (
-			"Cristallien(Sagesse, Larcin)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
+			"Cristallien(Sagesse, Larcin)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, // arcana, endurance, one other
@@ -336,7 +336,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_ACROBATICS (
-			"Cristallien(Charisme, Acrobaties)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Acrobaties)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -345,7 +345,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_ATHLETICS (
-			"Cristallien(Charisme, Athlétisme)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Athlétisme)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -354,7 +354,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_BLUFF (
-			"Cristallien(Charisme, Bluff)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Bluff)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -363,7 +363,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_DIPLOMACY (
-			"Cristallien(Charisme, Diplomatie)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Diplomatie)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -372,7 +372,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_DUNGEONEERING (
-			"Cristallien(Charisme, Exploration)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Exploration)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -381,7 +381,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_HEAL (
-			"Cristallien(Charisme, Soins)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Soins)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -390,7 +390,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_HISTORY (
-			"Cristallien(Charisme, Histoire)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Histoire)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -399,7 +399,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_INSIGHT (
-			"Cristallien(Charisme, Intuition)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Intuition)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -408,7 +408,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_INTIMIDATE (
-			"Cristallien(Charisme, Intimidation)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Intimidation)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -417,7 +417,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_NATURE (
-			"Cristallien(Charisme, Nature)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Nature)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -426,7 +426,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_PERCEPTION (
-			"Cristallien(Charisme, Perception)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Perception)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, // arcana, endurance, one other
@@ -435,7 +435,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_RELIGION (
-			"Cristallien(Charisme, Religion)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Religion)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0}, // arcana, endurance, one other
@@ -444,7 +444,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_STEALTH (
-			"Cristallien(Charisme, Discretion)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Discretion)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0}, // arcana, endurance, one other
@@ -453,7 +453,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_STREETWISE (
-			"Cristallien(Charisme, Connais. de la rue)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Connais. de la rue)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0}, // arcana, endurance, one other
@@ -462,7 +462,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	SHARDMIND_CHARISMA_THIEVERY (
-			"Cristallien(Charisme, Larcin)", " m à  m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Cristallien(Charisme, Larcin)", "1,7 m à 1,85 m", "90 à 115 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.DEEP_SPEECH, Language.CHOICE),
 			new int[]{0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, // arcana, endurance, one other
@@ -471,7 +471,7 @@ public enum Race {
 					Feature.SHARD_SWARM)),
 
 	WILDEN_CONSTITUTION_FORTITUDE (
-			"Sylvien(Constitution, Vigueur)", " m à  m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
+			"Sylvien(Constitution, Vigueur)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -479,7 +479,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	WILDEN_CONSTITUTION_REFLEX (
-			"Sylvien(Constitution, Reflexe)", " m à  m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
+			"Sylvien(Constitution, Reflexe)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -487,7 +487,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	WILDEN_CONSTITUTION_WILL (
-			"Sylvien(Constitution, Volonté)", " m à  m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
+			"Sylvien(Constitution, Volonté)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 2, 0, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -495,7 +495,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	WILDEN_DEXTERITY_FORTITUDE (
-			"Sylvien(Dextérité, Vigueur)", " m à  m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
+			"Sylvien(Dextérité, Vigueur)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -503,7 +503,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	WILDEN_DEXTERITY_REFLEX (
-			"Sylvien(Dextérité, Reflexe)", " m à  m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
+			"Sylvien(Dextérité, Reflexe)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -511,7 +511,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	WILDEN_DEXTERITY_WILL (
-			"Sylvien(Dextérité, Volonté)", " m à  m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
+			"Sylvien(Dextérité, Volonté)", "1,8 m à 1,95 m", "70 à 85 kg" , new int[]{0, 0, 2, 0, 2, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.ELVEN),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0}, // nature, stealth
@@ -519,7 +519,7 @@ public enum Race {
 					Feature.NATURES_ASPECT)),
 
 	CHANGELING_DEXTERITY (
-			"Changelin (Dextérité)", " m à  m", "60 à 80 kg" , new int[]{0, 0, 2, 0, 0, 2},
+			"Changelin (Dextérité)", "1,65 m à 1,8 m", "60 à 80 kg" , new int[]{0, 0, 2, 0, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON),
 			new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // bluff, insight
@@ -527,7 +527,7 @@ public enum Race {
 					Feature.CHANGE_SHAPE, Feature.CHANGELING_TRICK)),
 
 	CHANGELING_INTELLIGENCE (
-			"Changelin (Intelligence)", " m à  m", "60 à 80 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Changelin (Intelligence)", "1,65 m à 1,8 m", "60 à 80 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON),
 			new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // bluff, insight
@@ -535,119 +535,119 @@ public enum Race {
 					Feature.CHANGE_SHAPE, Feature.CHANGELING_TRICK)),
 
 	KALASHTAR_ACROBATICS (
-			"Kalashtar (Acrobaties)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Acrobaties)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ARCANA (
-			"Kalashtar (Arcanes)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Arcanes)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ATHLETICS (
-			"Kalashtar (Athlétisme)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Athlétisme)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_BLUFF (
-			"Kalashtar (Bluff)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Bluff)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_DIPLOMACY (
-			"Kalashtar (Diplomatie)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Diplomatie)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_DUNGEONEERING (
-			"Kalashtar (Exploration)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Exploration)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ENDURANCE (
-			"Kalashtar (Endurance)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Endurance)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_HEAL (
-			"Kalashtar (Soins)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Soins)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_HISTORY (
-			"Kalashtar (Histoire)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Histoire)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_INTIMIDATE (
-			"Kalashtar (Intimidation)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Intimidation)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_NATURE (
-			"Kalashtar (Nature)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Nature)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_PERCEPTION (
-			"Kalashtar (Perception)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Perception)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_RELIGION (
-			"Kalashtar (Religion)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Religion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_STEALTH (
-			"Kalashtar (Discrétion)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Discrétion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_STREETWISE (
-			"Kalashtar (Connais. de la rue)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Connais. de la rue)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_THIEVERY (
-			"Kalashtar (Larcin)", " m à  m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Larcin)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	WARFORGED (
-			"Forgelier", " m à  m", "135 à 150 kg" , new int[]{2, 2, 0, 0, 0, 0},
+			"Forgelier", "1,8 m à 1,95 m", "135 à 150 kg" , new int[]{2, 2, 0, 0, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0}, // endurance, intimidate
@@ -662,35 +662,35 @@ public enum Race {
 			Arrays.asList(Feature.FEY_ORIGIN, Feature.TRANCE, Feature.LOLTHTOUCHED)),
 
 	GENASI_EARTHSOUL (
-			"Genasi (âme de terre)", " m à  m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
+			"Genasi (âme de terre)", "1,7 m à 1,85 m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.PRIMORDIAL),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // endurance, nature
 			Arrays.asList(Feature.ELEMENTAL_ORIGIN, Feature.ELEMENTAL_MANIFESTATION_EARTHSOUL)),
 
 	GENASI_FIRESOUL (
-			"Genasi (âme de feu)", " m à  m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
+			"Genasi (âme de feu)", "1,7 m à 1,85 m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.PRIMORDIAL),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // endurance, nature
 			Arrays.asList(Feature.ELEMENTAL_ORIGIN, Feature.ELEMENTAL_MANIFESTATION_FIRESOUL)),
 
 	GENASI_STORMSOUL (
-			"Genasi (âme d'orage)", " m à  m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
+			"Genasi (âme d'orage)", "1,7 m à 1,85 m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.PRIMORDIAL),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // endurance, nature
 			Arrays.asList(Feature.ELEMENTAL_ORIGIN, Feature.ELEMENTAL_MANIFESTATION_STORMSOUL)),
 
 	GENASI_WATERSOUL (
-			"Genasi (âme d'eau)", " m à  m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
+			"Genasi (âme d'eau)", "1,7 m à 1,85 m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.PRIMORDIAL),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // endurance, nature
 			Arrays.asList(Feature.ELEMENTAL_ORIGIN, Feature.ELEMENTAL_MANIFESTATION_WATERSOUL)),
 
 	GENASI_WINDSOUL (
-			"Genasi (âme de vent)", " m à  m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
+			"Genasi (âme de vent)", "1,7 m à 1,85 m", "65 à 112 kg" , new int[]{2, 0, 0, 2, 0, 0},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.PRIMORDIAL),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, // endurance, nature

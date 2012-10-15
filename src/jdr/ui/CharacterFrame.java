@@ -16,8 +16,8 @@ import jdr.Ability;
 import jdr.Armor;
 import jdr.Classe;
 import jdr.ClasseOption;
+import jdr.MagicalWeapon;
 import jdr.Race;
-import jdr.Shield;
 import jdr.Weapon;
 
 public class CharacterFrame extends JFrame {
@@ -65,9 +65,10 @@ public class CharacterFrame extends JFrame {
 	private JLabel valeurSurgesDay;
 	private JLabel valeurAC;
 	private JComboBox choixArmure;
-	private JComboBox choixBouclier;
 	private JComboBox choixArme;
+	private JComboBox choixMainGauche;
 	private JComboBox choixCarac;
+	private JComboBox choixArmeMagique;
 	private JLabel starAcrobatics;
 	private JCheckBox boxAcrobatics;
 	private JLabel valeurAcrobatics;
@@ -127,6 +128,12 @@ public class CharacterFrame extends JFrame {
 
 	private JLabel valeurAttaque;
 	private JLabel valeurDegat;
+	private JLabel valeurAttaqueGauche;
+	private JLabel valeurDegatGauche;
+
+	private JLabel valeurSize;
+	private JLabel valeurPoids;
+	private JLabel valeurTaille;
 
 	public CharacterFrame() {
 		build();
@@ -134,7 +141,7 @@ public class CharacterFrame extends JFrame {
 
 	private void build() {
 		setTitle("My Character Builder");
-		setSize(900, 1100);
+		setSize(1100, 1100);
 		setLocationRelativeTo(null);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,10 +153,10 @@ public class CharacterFrame extends JFrame {
 		panel.setLayout(new GridBagLayout());
 
 		CalculerListener calculerListener = new CalculerListener(this);
-		ShieldListener shieldListener = new ShieldListener(this, calculerListener);
 		WeaponListener weaponListener = new WeaponListener(this, calculerListener);
+		LeftHandListener leftHandListener = new LeftHandListener(this, calculerListener);
 		ClasseRaceListener classeRaceListener = new ClasseRaceListener(
-				this, calculerListener, shieldListener, weaponListener);
+				this, calculerListener, weaponListener, leftHandListener);
 
 		texteNom = new JTextField();
 		texteNom.setColumns(12);
@@ -170,13 +177,22 @@ public class CharacterFrame extends JFrame {
 		choixClasse.addActionListener(classeRaceListener);
 
 		choixClasseOption = new JComboBox(new String[] {ClasseOption.NONE.getNom()});
-		panel.add(choixClasseOption, getGridBagConstraints(6, 0, 2, 1, 30, 10));
+		panel.add(choixClasseOption, getGridBagConstraints(6, 0, 3, 1, 10, 10));
 		choixClasseOption.setSelectedIndex(0);
 		choixClasseOption.addActionListener(classeRaceListener);
 
 		choixRace = new JComboBox(Race.getRaceNameList().toArray());
 		panel.add(choixRace, getGridBagConstraints(0, 1, 3, 1, 50, 10));
 		choixRace.addActionListener(classeRaceListener);
+
+		valeurSize = new JLabel("-");
+		panel.add(valeurSize, getGridBagConstraints(3, 1, 10, 10));
+
+		valeurPoids = new JLabel("-");
+		panel.add(valeurPoids, getGridBagConstraints(4, 1, 10, 10));
+
+		valeurTaille = new JLabel("-");
+		panel.add(valeurTaille, getGridBagConstraints(5, 1, 20, 10));
 
 		JLabel labelInit = new JLabel("Initiative");
 		panel.add(labelInit, getGridBagConstraints(0, 2, 30, 10));
@@ -352,6 +368,18 @@ public class CharacterFrame extends JFrame {
 		valeurVolonte = new JLabel("-");
 		panel.add(valeurVolonte, getGridBagConstraints(6, 7, 1, 2, 10, 20));
 
+		JLabel labelAttaqueGauche = new JLabel("Attaque (gauche)");
+		panel.add(labelAttaqueGauche, getGridBagConstraints(7, 7, 20, 10));
+
+		valeurAttaqueGauche = new JLabel("-");
+		panel.add(valeurAttaqueGauche, getGridBagConstraints(8, 7, 20, 10));
+
+		JLabel labelDegatGauche = new JLabel("Dégâts (gauche)");
+		panel.add(labelDegatGauche, getGridBagConstraints(7, 8, 20, 10));
+
+		valeurDegatGauche = new JLabel("-");
+		panel.add(valeurDegatGauche, getGridBagConstraints(8, 8, 20, 10));
+
 		JLabel labelMaxHP = new JLabel("PV Max");
 		panel.add(labelMaxHP, getGridBagConstraints(0, 9, 30, 10));
 
@@ -376,21 +404,25 @@ public class CharacterFrame extends JFrame {
 		valeurSurgesDay = new JLabel("-");
 		panel.add(valeurSurgesDay, getGridBagConstraints(5, 10, 20, 10));
 
+		choixCarac = new JComboBox(Ability.getAbilityNameList().toArray());
+		panel.add(choixCarac, getGridBagConstraints(7, 9, 20, 10));
+		choixCarac.addActionListener(calculerListener);
+
+		choixArmeMagique = new JComboBox(MagicalWeapon.getWeaponDisplayList().toArray());
+		panel.add(choixArmeMagique, getGridBagConstraints(8, 9, 10, 10));
+		choixArmeMagique.addActionListener(calculerListener);
+
 		choixArmure = new JComboBox(Armor.getArmorNameList().toArray());
 		panel.add(choixArmure, getGridBagConstraints(0, 11, 2, 1, 40, 10));
 		choixArmure.addActionListener(calculerListener);
 
-		choixBouclier = new JComboBox(Shield.getShieldNameList().toArray());
-		panel.add(choixBouclier, getGridBagConstraints(2, 11, 2, 1, 20, 10));
-		choixBouclier.addActionListener(shieldListener);
-
 		choixArme = new JComboBox(Weapon.getWeaponNameList().toArray());
-		panel.add(choixArme, getGridBagConstraints(4, 11, 2, 1, 30, 10));
+		panel.add(choixArme, getGridBagConstraints(2, 11, 3, 1, 30, 10));
 		choixArme.addActionListener(weaponListener);
 
-		choixCarac = new JComboBox(Ability.getAbilityNameList().toArray());
-		panel.add(choixCarac, getGridBagConstraints(6, 11, 2, 1, 30, 10));
-		choixCarac.addActionListener(calculerListener);
+		choixMainGauche = new JComboBox(Weapon.getWeaponNameList().toArray());
+		panel.add(choixMainGauche, getGridBagConstraints(5, 11, 2, 1, 30, 10));
+		choixMainGauche.addActionListener(leftHandListener);
 
 		JLabel labelSkill = new JLabel("Compétences");
 		panel.add(labelSkill, getGridBagConstraints(0, 12, 30, 10));
@@ -817,16 +849,20 @@ public class CharacterFrame extends JFrame {
 		return choixArmure;
 	}
 
-	public JComboBox getChoixBouclier() {
-		return choixBouclier;
-	}
-
 	public JComboBox getChoixArme() {
 		return choixArme;
 	}
 
+	public JComboBox getChoixMainGauche() {
+		return choixMainGauche;
+	}
+
 	public JComboBox getChoixCarac() {
 		return choixCarac;
+	}
+
+	public JComboBox getChoixArmeMagique() {
+		return choixArmeMagique;
 	}
 
 	public JCheckBox getBoxAcrobatics() {
@@ -1059,6 +1095,26 @@ public class CharacterFrame extends JFrame {
 
 	public JLabel getValeurDegat() {
 		return valeurDegat;
+	}
+
+	public JLabel getValeurAttaqueGauche() {
+		return valeurAttaqueGauche;
+	}
+
+	public JLabel getValeurDegatGauche() {
+		return valeurDegatGauche;
+	}
+
+	public JLabel getValeurSize() {
+		return valeurSize;
+	}
+
+	public JLabel getValeurPoids() {
+		return valeurPoids;
+	}
+
+	public JLabel getValeurTaille() {
+		return valeurTaille;
 	}
 
 }

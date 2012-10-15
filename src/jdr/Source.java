@@ -6,6 +6,8 @@ public enum Source {
 	DIVINE,
 	MARTIAL,
 	PRIMAL,
-	PSIONIC
+	PSIONIC,
+
+	HYBRID
 
 }

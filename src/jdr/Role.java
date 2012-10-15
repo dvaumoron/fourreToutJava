@@ -5,6 +5,7 @@ public enum Role {
 	CONTROLLEUR,
 	PROTECTEUR,
 	MENEUR,
-	COGNEUR
+	COGNEUR,
 
+	HYBRID
 }

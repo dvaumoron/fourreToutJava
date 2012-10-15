@@ -13,11 +13,14 @@ import jdr.Armor;
 import jdr.ArmorType;
 import jdr.Classe;
 import jdr.ClasseOption;
+import jdr.DemiClasse;
 import jdr.Feature;
+import jdr.HybridClasse;
 import jdr.Race;
 import jdr.Shield;
 import jdr.Skill;
 import jdr.Weapon;
+import jdr.WeaponProperty;
 import jdr.WeaponType;
 
 public class ClasseRaceListener implements ActionListener {
@@ -25,17 +28,17 @@ public class ClasseRaceListener implements ActionListener {
 	private CharacterFrame frame;
 	private boolean enable;
 	private CalculerListener calculerListener;
-	private ShieldListener shieldListener;
 	private WeaponListener weaponListener;
+	private LeftHandListener leftHandListener;
 	
 	public ClasseRaceListener(
 			CharacterFrame frame, CalculerListener calculerListener,
-			ShieldListener shieldListener, WeaponListener weaponListener) {
+			WeaponListener weaponListener, LeftHandListener leftHandListener) {
 		this.frame = frame;
 		enable = true;
 		this.calculerListener = calculerListener;
-		this.shieldListener = shieldListener;
 		this.weaponListener = weaponListener;
+		this.leftHandListener = leftHandListener;
 	}
 
 	@Override
@@ -43,8 +46,8 @@ public class ClasseRaceListener implements ActionListener {
 		if (enable) {
 			enable = false;
 			calculerListener.setEnable(false);
-			shieldListener.setEnable(false);
 			weaponListener.setEnable(false);
+			leftHandListener.setEnable(false);
 
 			String nomClasse = (String) frame.getChoixClasse().getSelectedItem();
 			Classe classe = Classe.getClasseByName(nomClasse);
@@ -52,8 +55,39 @@ public class ClasseRaceListener implements ActionListener {
 			String nomRace = (String) frame.getChoixRace().getSelectedItem();
 			Race race = Race.getRaceByName(nomRace);
 
+			List<Feature> features = new ArrayList<Feature>();
+			features.addAll(race.getRaceFeatures());
+
+			JComboBox choixClasseOption = frame.getChoixClasseOption();
+			int selectedIndex = choixClasseOption.getSelectedIndex();
+			choixClasseOption.removeAllItems();
+
+			if (classe instanceof DemiClasse) {
+				for(DemiClasse demiClasse : DemiClasse.values()) {
+					if (demiClasse != classe) {
+						choixClasseOption.addItem(demiClasse.getNom());
+					}
+				}
+				choixClasseOption.setSelectedIndex(
+						Math.min(selectedIndex, choixClasseOption.getItemCount() - 1 ));
+
+				classe = new HybridClasse((DemiClasse) classe, (DemiClasse) Classe.getClasseByName((String) choixClasseOption.getSelectedItem()));
+			} else {
+
+				for(ClasseOption option : ClasseOption.getClasseOptions(classe)) {
+					choixClasseOption.addItem(option.getNom());
+				}
+				choixClasseOption.setSelectedIndex(
+						Math.min(selectedIndex, choixClasseOption.getItemCount() - 1 ));
+
+				String nomOption = (String) choixClasseOption.getSelectedItem();
+				ClasseOption option = ClasseOption.getClasseOption(nomOption);
+
+				features.addAll(option.getFeatures());
+			}
+
 			JComboBox choixArmure = frame.getChoixArmure();
-			int selectedIndex = choixArmure.getSelectedIndex();
+			selectedIndex = choixArmure.getSelectedIndex();
 			choixArmure.removeAllItems();
 
 			List<ArmorType> armorProficiencies = classe.getArmorProficiencies();
@@ -76,92 +110,30 @@ public class ClasseRaceListener implements ActionListener {
 
 			choixArmure.setSelectedIndex(selectedIndex);
 
-			JComboBox choixBouclier = frame.getChoixBouclier();
-			choixBouclier.removeAllItems();
+			JComboBox choixMainGauche = frame.getChoixMainGauche();
+			choixMainGauche.removeAllItems();
 
 			for(Shield shield : Shield.values()) {
 				if (armorProficiencies.contains(shield.getArmorType())) {
-					choixBouclier.addItem(shield.getShieldName());
+					choixMainGauche.addItem(shield.getShieldName());
 				}
 			}
-			choixBouclier.setSelectedIndex(choixBouclier.getItemCount() - 1);
+			choixMainGauche.setSelectedIndex(choixMainGauche.getItemCount() - 1);
 
-			List<Skill> classSkills = classe.getClassSkills();
-			List<Skill> trainedSkills = classe.getTrainedSkills();
-
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarAcrobatics(),
-					frame.getBoxAcrobatics(), Skill.ACROBATICS);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarArcana(),
-					frame.getBoxArcana(), Skill.ARCANA);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarAthletics(),
-					frame.getBoxAthletics(), Skill.ATHLETICS);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarBluff(),
-					frame.getBoxBluff(), Skill.BLUFF);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarDiplomacy(),
-					frame.getBoxDiplomacy(), Skill.DIPLOMACY);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarDungeoneering(),
-					frame.getBoxDungeoneering(), Skill.DUNGEONEERING);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarEndurance(),
-					frame.getBoxEndurance(), Skill.ENDURANCE);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarHeal(),
-					frame.getBoxHeal(), Skill.HEAL);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarHistory(),
-					frame.getBoxHistory(), Skill.HISTORY);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarInsight(),
-					frame.getBoxInsight(), Skill.INSIGHT);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarIntimidate(),
-					frame.getBoxIntimidate(), Skill.INTIMIDATE);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarNature(),
-					frame.getBoxNature(), Skill.NATURE);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarPerception(),
-					frame.getBoxPerception(), Skill.PERCEPTION);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarReligion(),
-					frame.getBoxReligion(), Skill.RELIGION);
-			manageSkill(
-				classSkills, trainedSkills, frame.getStarStealth(),
-				frame.getBoxStealth(), Skill.STEALTH);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarStreetwise(),
-					frame.getBoxStreetwise(), Skill.STREETWISE);
-			manageSkill(
-					classSkills, trainedSkills, frame.getStarThievery(),
-					frame.getBoxThievery(), Skill.THIEVERY);
-
-			JComboBox choixClasseOption = frame.getChoixClasseOption();
-			selectedIndex = choixClasseOption.getSelectedIndex();
-			choixClasseOption.removeAllItems();
-
-			for(ClasseOption option : ClasseOption.getClasseOptions(classe)) {
-				choixClasseOption.addItem(option.getNom());
-			}
-			choixClasseOption.setSelectedIndex(
-					Math.min(selectedIndex, choixClasseOption.getItemCount() - 1 ));
+			manageSkills(classe);
 
 			JComboBox choixArme = frame.getChoixArme();
 			choixArme.removeAllItems();
 
 			List<WeaponType> weaponProficiencies = classe.getWeaponProficiencies();
 
-			String nomOption = (String) choixClasseOption.getSelectedItem();
-			ClasseOption option = ClasseOption.getClasseOption(nomOption);
-
-			List<Feature> features = new ArrayList<Feature>();
-			features.addAll(race.getRaceFeatures());
-			features.addAll(option.getFeatures());
+			boolean oneHandedInOffhand = false;
+			for (Feature feature : features) {
+				if (feature.isOneHandedInOffhand()) {
+					oneHandedInOffhand = true;
+					break;
+				}
+			}
 
 			choixArme.addItem(Weapon.UNARMED_ATTACK.getNom());
 			for(Weapon weapon : Weapon.values()) {
@@ -180,17 +152,78 @@ public class ClasseRaceListener implements ActionListener {
 				}
 				if (proficiency) {
 					choixArme.addItem(weapon.getNom());
+					if (weapon.getProperties().contains(WeaponProperty.OFF_HAND)
+							|| (oneHandedInOffhand && !weapon.isTwoHanded())) {
+						choixMainGauche.addItem(weapon.getNom());
+					}
 				}
 			}
 			choixArme.setSelectedIndex(0);
 
 			enable = true;
 			calculerListener.setEnable(true);
-			shieldListener.setEnable(true);
 			weaponListener.setEnable(true);
+			leftHandListener.setEnable(true);
 
 			calculerListener.actionPerformed(event);
 		}
+	}
+
+	private void manageSkills(Classe classe) {
+		List<Skill> classSkills = classe.getClassSkills();
+		List<Skill> trainedSkills = classe.getTrainedSkills();
+
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarAcrobatics(),
+				frame.getBoxAcrobatics(), Skill.ACROBATICS);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarArcana(),
+				frame.getBoxArcana(), Skill.ARCANA);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarAthletics(),
+				frame.getBoxAthletics(), Skill.ATHLETICS);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarBluff(),
+				frame.getBoxBluff(), Skill.BLUFF);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarDiplomacy(),
+				frame.getBoxDiplomacy(), Skill.DIPLOMACY);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarDungeoneering(),
+				frame.getBoxDungeoneering(), Skill.DUNGEONEERING);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarEndurance(),
+				frame.getBoxEndurance(), Skill.ENDURANCE);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarHeal(),
+				frame.getBoxHeal(), Skill.HEAL);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarHistory(),
+				frame.getBoxHistory(), Skill.HISTORY);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarInsight(),
+				frame.getBoxInsight(), Skill.INSIGHT);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarIntimidate(),
+				frame.getBoxIntimidate(), Skill.INTIMIDATE);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarNature(),
+				frame.getBoxNature(), Skill.NATURE);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarPerception(),
+				frame.getBoxPerception(), Skill.PERCEPTION);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarReligion(),
+				frame.getBoxReligion(), Skill.RELIGION);
+		manageSkill(
+			classSkills, trainedSkills, frame.getStarStealth(),
+			frame.getBoxStealth(), Skill.STEALTH);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarStreetwise(),
+				frame.getBoxStreetwise(), Skill.STREETWISE);
+		manageSkill(
+				classSkills, trainedSkills, frame.getStarThievery(),
+				frame.getBoxThievery(), Skill.THIEVERY);
 	}
 
 	private static void manageSkill(List<Skill> classSkills, List<Skill> trainedSkills,

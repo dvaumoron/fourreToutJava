@@ -25,8 +25,7 @@ public class StandardClasse extends Classe {
 			15, 6, 9, Collections.<Skill>emptyList(),
 			3, Arrays.asList(Skill.ATHLETICS, Skill.ENDURANCE, Skill.HEAL, Skill.INTIMIDATE,
 					Skill.STREETWISE),
-			Arrays.asList(Feature.COMBAT_CHALLENGE, Feature.COMBAT_SUPERIORITY,
-							Feature.FIGHTER_WEAPON_TALENT));
+			Arrays.asList(Feature.COMBAT_CHALLENGE, Feature.FIGHTER_WEAPON_TALENT));
 
 	public static final StandardClasse PALADIN = new StandardClasse(
 			"Paladin", Role.PROTECTEUR, Source.DIVINE,
@@ -36,8 +35,7 @@ public class StandardClasse extends Classe {
 			15, 6, 10, Arrays.asList(Skill.RELIGION),
 			3, Arrays.asList(Skill.DIPLOMACY, Skill.ENDURANCE, Skill.HEAL, Skill.HISTORY,
 					Skill.INSIGHT, Skill.INTIMIDATE, Skill.RELIGION),
-			Arrays.asList(Feature.CHANEL_DIVINITY, Feature.DIVINE_CHALLENGE,
-							Feature.LAY_ON_HANDS));
+			Arrays.asList(Feature.CHANEL_DIVINITY, Feature.DIVINE_CHALLENGE));
 
 	public static final StandardClasse RANGER_DUNGEONEERING = new StandardClasse(
 			"R™deur(Exploration)", Role.COGNEUR, Source.MARTIAL,
@@ -48,8 +46,7 @@ public class StandardClasse extends Classe {
 			4, Arrays.asList(Skill.ACROBATICS, Skill.ATHLETICS, Skill.DUNGEONEERING,
 					Skill.ENDURANCE, Skill.HEAL, Skill.NATURE, Skill.PERCEPTION,
 					Skill.STEALTH),
-			Arrays.asList(Feature.FIGHTING_STYLE, Feature.HUNTERS_QUARRY,
-							Feature.PRIME_SHOT));
+			Arrays.asList(Feature.FIGHTING_STYLE, Feature.HUNTERS_QUARRY));
 
 	public static final StandardClasse RANGER_NATURE = new StandardClasse(
 			"R™deur(Nature)", Role.COGNEUR, Source.MARTIAL,
@@ -60,8 +57,7 @@ public class StandardClasse extends Classe {
 			4, Arrays.asList(Skill.ACROBATICS, Skill.ATHLETICS, Skill.DUNGEONEERING,
 					Skill.ENDURANCE, Skill.HEAL, Skill.NATURE, Skill.PERCEPTION,
 					Skill.STEALTH),
-			Arrays.asList(Feature.FIGHTING_STYLE, Feature.HUNTERS_QUARRY,
-							Feature.PRIME_SHOT));
+			Arrays.asList(Feature.FIGHTING_STYLE, Feature.HUNTERS_QUARRY));
 
 	public static final StandardClasse ROGUE = new StandardClasse(
 			"Voleur", Role.COGNEUR, Source.MARTIAL,
@@ -73,8 +69,7 @@ public class StandardClasse extends Classe {
 			4, Arrays.asList(Skill.ACROBATICS, Skill.ATHLETICS, Skill.BLUFF,
 					Skill.DUNGEONEERING, Skill.INSIGHT, Skill.INTIMIDATE, Skill.PERCEPTION,
 					Skill.STEALTH, Skill.STREETWISE, Skill.THIEVERY),
-			Arrays.asList(Feature.FIRST_STRIKE, Feature.ROGUE_TACTICS,
-							Feature.ROGUE_WEAPON_TALENT, Feature.SNEAK_ATTACK));
+			Arrays.asList(Feature.FIRST_STRIKE, Feature.ROGUE_TACTICS, Feature.SNEAK_ATTACK));
 
 	public static final StandardClasse WARLOCK = new StandardClasse(
 			"Sorcier", Role.COGNEUR, Source.ARCANE,
@@ -310,7 +305,7 @@ public class StandardClasse extends Classe {
 	private List<Skill> classSkills;
 	private List<Feature> classFeatures;
 
-	private StandardClasse(String nom, Role role, Source source,
+	public StandardClasse(String nom, Role role, Source source,
 			List<ArmorType> armorProficiencies,
 			List<WeaponType> weaponProficiencies,
 			List<Implement> implementList, int[] bonusToDefense,

@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import jdr.Shield;
 import jdr.Weapon;
 
-public class ShieldListener implements ActionListener {
+public class LeftHandListener implements ActionListener {
 
 	private CharacterFrame frame;
 	private boolean enable;
 	private CalculerListener calculerListener;
-	
-	public ShieldListener(CharacterFrame frame, CalculerListener calculerListener) {
+
+	public LeftHandListener(CharacterFrame frame, CalculerListener calculerListener) {
 		this.frame = frame;
 		this.enable = true;
 		this.calculerListener = calculerListener;
@@ -21,15 +21,20 @@ public class ShieldListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (enable) {
-			String nomBouclier = (String) frame.getChoixBouclier().getSelectedItem();
-			Shield shield = Shield.getShieldByName(nomBouclier);
-
 			String nomArme = (String) frame.getChoixArme().getSelectedItem();
 			Weapon weapon = Weapon.getWeaponByName(nomArme);
 			
-			if (!shield.equals(Shield.NONE) && weapon.isTwoHanded()) {
-				frame.getChoixArme().setSelectedIndex(0);
+			String nomMainGauche = (String) frame.getChoixMainGauche().getSelectedItem();
+			Weapon leftWeapon = Weapon.getWeaponByName(nomMainGauche);
+			Shield shield = Shield.getShieldByName(nomMainGauche);
+			
+			if ((leftWeapon == null && !Shield.NONE.equals(shield))
+					|| (shield == null && !Weapon.UNARMED_ATTACK.equals(leftWeapon))) {
+				if (weapon.isTwoHanded()) {
+					frame.getChoixArme().setSelectedIndex(0);
+				}
 			}
+
 			calculerListener.actionPerformed(event);
 		}
 	}

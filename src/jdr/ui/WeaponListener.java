@@ -24,7 +24,7 @@ public class WeaponListener implements ActionListener {
 			Weapon weapon = Weapon.getWeaponByName(nomArme);
 
 			if (weapon.isTwoHanded()) {
-				frame.getChoixBouclier().setSelectedIndex(0);
+				frame.getChoixMainGauche().setSelectedIndex(0);
 			}
 			calculerListener.actionPerformed(event);
 		}
