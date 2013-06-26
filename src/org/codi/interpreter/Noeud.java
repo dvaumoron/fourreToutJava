@@ -19,4 +19,17 @@ public class Noeud implements Expression {
 		return semantique.evaluer(environnement, sousNoeud);
 	}
 
+	@Override
+	public String toString() {
+		return "Noeud [semantique=" + semantique + ", sousNoeud=" + sousNoeud + "]";
+	}
+
+	public Semantique getSemantique() {
+		return semantique;
+	}
+
+	public List<Expression> getSousNoeud() {
+		return sousNoeud;
+	}
+
 }

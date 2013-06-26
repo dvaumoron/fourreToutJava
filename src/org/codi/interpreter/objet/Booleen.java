@@ -1,7 +1,7 @@
 package org.codi.interpreter.objet;
 
 
-public class Booleen implements Objet{
+public class Booleen implements Objet {
 
 	private final boolean valeur;
 

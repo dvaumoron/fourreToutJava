@@ -7,7 +7,7 @@ import org.codi.interpreter.EnvironnementLocal;
 import org.codi.interpreter.Expression;
 import org.codi.interpreter.Variable;
 
-public class Fonction implements Objet{
+public class Fonction implements Objet {
 
 	public static final String RETURN = "return";
 

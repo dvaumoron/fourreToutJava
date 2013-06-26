@@ -535,112 +535,112 @@ public enum Race {
 					Feature.CHANGE_SHAPE, Feature.CHANGELING_TRICK)),
 
 	KALASHTAR_ACROBATICS (
-			"Kalashtar (Acrobaties)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Acrobaties)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ARCANA (
-			"Kalashtar (Arcanes)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Arcanes)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ATHLETICS (
-			"Kalashtar (Athlétisme)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Athlétisme)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_BLUFF (
-			"Kalashtar (Bluff)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Bluff)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_DIPLOMACY (
-			"Kalashtar (Diplomatie)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Diplomatie)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_DUNGEONEERING (
-			"Kalashtar (Exploration)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Exploration)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_ENDURANCE (
-			"Kalashtar (Endurance)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Endurance)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_HEAL (
-			"Kalashtar (Soins)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Soins)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_HISTORY (
-			"Kalashtar (Histoire)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Histoire)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_INTIMIDATE (
-			"Kalashtar (Intimidation)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Intimidation)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_NATURE (
-			"Kalashtar (Nature)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Nature)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_PERCEPTION (
-			"Kalashtar (Perception)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Perception)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_RELIGION (
-			"Kalashtar (Religion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Religion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_STEALTH (
-			"Kalashtar (Discrétion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Discrétion)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_STREETWISE (
-			"Kalashtar (Connais. de la rue)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Connais. de la rue)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0}, // insight, one other
 			Arrays.asList(Feature.DUAL_SOUL, Feature.BASTION_OF_MENTAL_CLARITY)),
 
 	KALASHTAR_THIEVERY (
-			"Kalashtar (Larcin)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 2, 0, 2},
+			"Kalashtar (Larcin)", "1,7 m à 1,9 m", "65 à 110 kg" , new int[]{0, 0, 0, 0, 2, 2},
 			Size.MEDIUM, 6, Vision.NORMAL,
 			Arrays.asList(Language.COMMON, Language.TELEPATHY_5),
 			new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2}, // insight, one other

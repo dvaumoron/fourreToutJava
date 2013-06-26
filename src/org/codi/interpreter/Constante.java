@@ -13,4 +13,9 @@ public class Constante implements Expression {
 		return valeur;
 	}
 
+	@Override
+	public String toString() {
+		return "Constante [valeur=" + valeur + "]";
+	}
+
 }

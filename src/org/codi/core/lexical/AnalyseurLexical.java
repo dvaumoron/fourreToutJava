@@ -32,31 +32,39 @@ public class AnalyseurLexical {
 		private class ParsingLexical implements Iterator<Lexeme> {
 
 			private int position = 0;
+			private boolean finAEnvoyer = true;
 
 			@Override
 			public boolean hasNext() {
-				return position < phrase.length();
+				return position < phrase.length() || finAEnvoyer;
 			}
 
 			@Override
 			public Lexeme next() {
-				Etat etatCourant = etatInitial;
-				Type dernierTypeValide = null;
-				int dernierePositionValide = 0;
-				int positionCourante = position;
-				while (etatCourant.isNotPoubelle() && positionCourante < phrase.length()) {
-					etatCourant = etatCourant.transition(phrase.charAt(positionCourante));
-					if (etatCourant.isValide()) {
-						dernierTypeValide = etatCourant.getType();
-						dernierePositionValide = positionCourante;
+				Lexeme result;
+				if (position >= phrase.length()) {
+					finAEnvoyer = false;
+					result = Lexeme.create(Type.FIN);
+				} else {
+					Etat etatCourant = etatInitial;
+					Type dernierTypeValide = null;
+					int dernierePositionValide = 0;
+					int positionCourante = position;
+					while (etatCourant.isNotPoubelle() && positionCourante < phrase.length()) {
+						etatCourant = etatCourant.transition(phrase.charAt(positionCourante));
+						if (etatCourant.isValide()) {
+							dernierTypeValide = etatCourant.getType();
+							dernierePositionValide = positionCourante;
+						}
+						++positionCourante;
 					}
-					++positionCourante;
+					int anciennePosition = position;
+					position = dernierePositionValide + 1;
+					result = Lexeme.create(
+							dernierTypeValide,
+							phrase.substring(anciennePosition, position));
 				}
-				int anciennePosition = position;
-				position = dernierePositionValide + 1;
-				return new Lexeme(
-						dernierTypeValide,
-						phrase.substring(anciennePosition, position));
+				return result;
 			}
 
 			@Override
@@ -69,8 +77,15 @@ public class AnalyseurLexical {
 	}
 
 	public static void main(String[] args) {
-		Etat etatPoubelle = new Etat(null, false, null);
-		Etat etatNombre = new Etat(Type.NOMBRE, true, etatPoubelle);
+		AnalyseurLexical analyseurLexical = buildAnalyseurExpression();
+		for(Lexeme l : analyseurLexical.analise("35+4*6-25")) {
+			System.out.println(l);
+		}
+	}
+
+	public static AnalyseurLexical buildAnalyseurExpression() {
+		Etat etatPoubelle = Etat.create();
+		Etat etatNombre = Etat.create(Type.NOMBRE, etatPoubelle);
 		etatNombre.addTransition('1', etatNombre);
 		etatNombre.addTransition('2', etatNombre);
 		etatNombre.addTransition('3', etatNombre);
@@ -80,8 +95,8 @@ public class AnalyseurLexical {
 		etatNombre.addTransition('7', etatNombre);
 		etatNombre.addTransition('8', etatNombre);
 		etatNombre.addTransition('9', etatNombre);
-		Etat etatOperateur = new Etat(Type.OPERATEUR, true, etatPoubelle);
-		Etat etatInitial = new Etat(null, true, etatPoubelle);
+		Etat etatOperateur = Etat.create(Type.OPERATEUR, etatPoubelle);
+		Etat etatInitial = Etat.create(etatPoubelle);
 		etatInitial.addTransition('1', etatNombre);
 		etatInitial.addTransition('2', etatNombre);
 		etatInitial.addTransition('3', etatNombre);
@@ -97,10 +112,7 @@ public class AnalyseurLexical {
 		etatInitial.addTransition('/', etatOperateur);
 		
 		AnalyseurLexical analyseurLexical = new AnalyseurLexical(etatInitial);
-		for(Lexeme l : analyseurLexical.analise("35+4*6-25")) {
-			System.out.println(l.getType());
-			System.out.println(l.getValeur());
-		}
+		return analyseurLexical;
 	}
 
 }

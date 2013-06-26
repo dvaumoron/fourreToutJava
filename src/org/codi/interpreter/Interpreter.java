@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codi.core.lexical.AnalyseurLexical;
+import org.codi.core.syntaxique.AnalyseurSyntaxique;
 import org.codi.interpreter.objet.Classe;
 import org.codi.interpreter.objet.Entier;
 
@@ -50,6 +52,10 @@ public class Interpreter {
 
 		Environnement environnement = new Environnement();
 		System.out.println(((Entier) bloc.evaluer(environnement)).getValeur());
+		
+		AnalyseurLexical lexical = AnalyseurLexical.buildAnalyseurExpression();
+		AnalyseurSyntaxique syntaxe = AnalyseurSyntaxique.buildAnalyseurExpression();
+		System.out.println(syntaxe.analyse(lexical.analise("25/5+2*7-25")).evaluer(new Environnement()));
 	}
 
 }

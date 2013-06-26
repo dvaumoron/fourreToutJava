@@ -3,6 +3,7 @@ package org.codi.core.lexical;
 import org.codi.interpreter.Constante;
 import org.codi.interpreter.Expression;
 import org.codi.interpreter.Variable;
+import org.codi.interpreter.objet.Classe;
 import org.codi.interpreter.objet.Entier;
 import org.codi.interpreter.objet.Reel;
 
@@ -11,9 +12,17 @@ public class Lexeme {
 	private final Type type;
 	private final String valeur;
 
-	public Lexeme(Type type, String valeur) {
+	private Lexeme(Type type, String valeur) {
 		this.type = type;
 		this.valeur = valeur;
+	}
+
+	public static Lexeme create(Type type, String valeur) {
+		return new Lexeme(type, valeur);
+	}
+
+	public static Lexeme create(Type type) {
+		return new Lexeme(type, null);
 	}
 
 	public Type getType() {
@@ -58,7 +67,7 @@ public class Lexeme {
 					return new Constante(new Reel(Double.parseDouble(valeur)));
 				}
 			case NOM :
-				return new Variable(valeur);
+				return new Variable(valeur, Classe.OBJET);
 			case CHAINE :
 				return new Constante(valeur.substring(1, valeur.length() - 1));
 			default:
@@ -71,7 +80,13 @@ public class Lexeme {
 		NOMBRE,
 		CHAINE,
 		NOM,
-		ESPACE
+		ESPACE,
+		FIN
+	}
+
+	@Override
+	public String toString() {
+		return "Lexeme [type=" + type + ", valeur=" + valeur + "]";
 	}
 
 }

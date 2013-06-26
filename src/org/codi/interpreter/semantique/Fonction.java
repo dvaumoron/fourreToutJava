@@ -35,4 +35,5 @@ public enum Fonction implements Semantique {
 		}
 		
 	};
+	
 }

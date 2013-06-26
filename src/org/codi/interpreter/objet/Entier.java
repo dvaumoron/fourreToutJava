@@ -93,4 +93,9 @@ public class Entier implements Nombre, Objet {
 		return new Booleen(r == valeur);
 	}
 
+	@Override
+	public String toString() {
+		return "Entier [valeur=" + valeur + "]";
+	}
+
 }
