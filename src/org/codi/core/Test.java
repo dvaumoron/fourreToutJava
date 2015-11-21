@@ -1,10 +1,14 @@
 package org.codi.core;
 
+import gnu.mapping.Environment;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+
+import kawa.standard.Scheme;
 
 import org.codi.interpreter.semantique.Semantique;
 
@@ -12,7 +16,7 @@ import template.Rope;
 
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Throwable {
 		Semantique inner = null;
 		Semantique instance = (Semantique) Proxy.newProxyInstance(
 				Semantique.class.getClassLoader(),
@@ -22,6 +26,12 @@ public class Test {
 		System.out.println(buildDecorator(List.class));
 		System.out.println("\n");
 		System.out.println(buildDecorator(ArrayList.class));
+
+		Scheme.registerEnvironment();
+		Environment current = new Scheme().getEnvironment();
+		Scheme.eval("(define (carre x) (* x x))", current);
+		Scheme.eval("(define (fromTo a b) (if (>= a b) '() (cons a (fromTo (+ 1 a) b))))", current);
+		System.out.println(Scheme.eval("(apply + (map carre (fromTo 1 11)))", current));
 	}
 
 	private static String buildDecorator(Class<?> aClass) {
