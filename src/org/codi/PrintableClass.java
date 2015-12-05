@@ -5,14 +5,14 @@ import java.util.List;
 
 public class PrintableClass {
 
-	private List<String> annotations= new ArrayList<>();
+	private List<String> annotations= new ArrayList<String>();
 	private boolean isPublic;
 	private boolean isAbstract;
 	private String name;
 	private String parentClass = null;
-	private List<String> implementedInterfaces = new ArrayList<>();
-	private List<PrintableField> fields = new ArrayList<>();
-	private List<PrintableMethod> methods = new ArrayList<>();
+	private List<String> implementedInterfaces = new ArrayList<String>();
+	private List<PrintableField> fields = new ArrayList<PrintableField>();
+	private List<PrintableMethod> methods = new ArrayList<PrintableMethod>();
 
 	public PrintableClass(boolean isPublic, boolean isAbstract, String name) {
 		this.isPublic = isPublic;
