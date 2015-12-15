@@ -17,6 +17,9 @@ public class BrainFuckInterpreter {
 		interpreter.eval(",>++++++[<-------->-],,[<+>-],<.>.");
 		// test avec une boucle imbriqué (affiche H)
 		interpreter.eval("++++++++[>>+++[<+++>-]<<-]>.");
+		System.out.println();
+		// signature
+		interpreter.eval("++++++++++[>+++++++>+++++++++++>++++++++++>+++<<<<-]>++++.>+++++++.--.+.>>++.<<<---------.>------.+.+++++.>++++.---.<--.>>.<<<++++++.>>..++++++.>.+.");
 	}
 
 	private List<Character> memo;
