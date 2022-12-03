@@ -1,0 +1,333 @@
+
+(def memoize args (bloc
+	(set func (. args get 0))
+	(set cache
+		(if (> (. args size) 1)
+			(. args get 1)
+			(dict)
+		)
+	)
+	(def resFunc args
+		(if (. cache containsKey args)
+			(. cache get args)
+			(bloc
+				(set res (call func args))
+				(. cache put args res)
+				res
+			)
+		)
+	)
+	(. resFunc setName (. func getName))
+	resFunc
+))
+
+(def printCall args (bloc
+	(set func (. args get 0))
+	(set printer
+		(if (> (. args size) 1)
+			(. args get 1)
+			print
+		)
+	)
+	(def resFunc args (bloc
+		(printer ((. resFunc getName) "(" (. "," join args) ")"))
+		(call func args)
+	))
+	(. resFunc setName (. func getName))
+	resFunc
+))
+
+(class CacheContainer
+	(def init (self)
+		(setAttr self cache (dict))
+	)
+)
+
+(class CacheInit CacheContainer
+	(def apply args
+		(CacheSetter
+			(getAttr (. args get 0) cache)
+			(. args subList 1 (. args size))
+		)
+	)
+)
+
+(class CacheSetter (bloc
+	(def init (self cache key) (bloc
+		(setAttr self cache cache)
+		(setAttr self key key)
+	))
+	(def set (self value)
+		(. (getAttr self cache) put (getAttr self key) value)
+	)
+))
+
+(class MockFunction CacheContainer
+	(def apply args (bloc
+		(set cache (getAttr (. args get 0) cache))
+		(set key (. args subList 1 (. args size)))
+		(if (. cache containsKey key)
+			(. cache get key)
+			(CacheSetter cache key)
+		)
+	))
+)
+
+(class MockMethod CacheContainer
+	(def apply args (bloc
+		(set cache (getAttr (. args get 0) cache))
+		(set key (. args subList 2 (. args size)))
+		(if (. cache containsKey key)
+			(. cache get key)
+			(CacheSetter cache key)
+		)
+	))
+)
+
+(class MockObject
+	(def getAttribute (self name)
+		(if (or (= name "init") (= name "toString"))
+			null
+			(setAttr self (name) (MockMethod))
+		)
+	)
+)
+
+(class Decorator (bloc
+	(def init (self inner)
+		(setAttr self inner inner)
+	)
+	(def toString (self)
+		("Decorator(" (getAttr self inner) ")")
+	)
+	(def getAttribute (self name)
+		(lambda args (bloc
+			(set inner (getAttr (. args get 0) inner))
+			(set newArgs (list inner))
+			(. newArgs addAll (. args subList 1 (. args size)))
+			(call (getAttr inner (name)) newArgs)
+		))
+	)
+))
+
+(class Composite (bloc
+	(def init (self)
+		(setAttr self items (list))
+	)
+	(def addItem (self item)
+		(. (getAttr self items) add item)
+	)
+	(def getAttribute (self name)
+		(if (= name "toString")
+			null
+			(lambda args (bloc
+				(set res (list))
+				(set partialArgs (. args subList 1 (. args size)))
+				(forEach (item (getAttr (. args get 0) items)) (bloc
+					(set newArgs (list item))
+					(. newArgs addAll partialArgs)
+					(. res add (call (getAttr item (name)) newArgs))
+				))
+				res
+			))
+		)
+	)
+))
+
+(class Partial (bloc
+	(def init args (bloc
+		(set self (. args get 0))
+		(setAttr self func (. args get 1))
+		(setAttr self args (. args subList 2 (. args size)))
+	))
+	(def apply args (bloc
+		(set self (. args get 0))
+		(set newArgs (list))
+		(. newArgs addAll (getAttr self args))
+		(. newArgs addAll (. args subList 1 (. args size)))
+		(call (getAttr self func) newArgs)
+	))
+))
+
+(class PartialMethod Partial
+	(def apply args (bloc
+		(set self (. args get 0))
+		(set newArgs (list (. args get 1)))
+		(. newArgs addAll (getAttr self args))
+		(. newArgs addAll (. args subList 2 (. args size)))
+		(call (getAttr self func) newArgs)
+	))
+)
+
+(defMacro partialCall (object method) (quote
+	(Partial (getAttr (unquote object) (unquote method)) (unquote object))
+))
+
+(defMacro pojo args (bloc
+	(set name (. args get 0))
+	(set paramList (. args subList 1 (. args size)))
+	(set initArgs (quote (self)))
+	(set initBody (quote (bloc)))
+	(set equalsBody (quote (and (isInstance other (unquote name)))))
+	(set hashCodeBody (quote (bloc (set res 0))))
+	(set hashCodeBodyTest
+		(quote (if (is value null)
+			null
+			(set res (+ res (. value hashCode)))
+		))
+	)
+	(forEach (param paramList) (bloc
+		(. initArgs add param)
+		(. initBody add
+			(quote (setAttr self (unquote param) (unquote param)))
+		)
+		(. equalsBody add
+			(quote (= (getAttr self (unquote param)) (getAttr other (unquote param))))
+		)
+		(. hashCodeBody add
+			(quote (set value (getAttr self (unquote param))))
+		)
+		(. hashCodeBody add hashCodeBodyTest)
+	))
+	(. hashCodeBody add (quote res))
+	(set body (quote
+		(bloc
+			(def init (unquote initArgs)
+				(unquote initBody)
+			)
+			(def equals (self other)
+				(or (is self other)
+					(unquote equalsBody)
+				)
+			)
+			(def hashCode (self)
+				(unquote hashCodeBody)
+			)
+		)
+	))
+	(nodeList (quote class) name body)
+))
+
+(def staticClass (clazz) (bloc
+	(forEach (key (. clazz keySet)) (bloc
+		(set f (getAttr clazz (key)))
+		(if (callable f)
+			(setAttr clazz (key) (staticMethod f))
+			null
+		)
+	))
+	clazz
+))
+
+(defMacro defAccept (nodeTypeName)
+	(quote (def accept (self visitor)
+		(. visitor
+			(unquote (nodeIdentifier ("visit" (. nodeTypeName getIdentifier))))
+			self
+		)
+	))
+)
+
+(enhancer Character accept (defAccept Character))
+
+(enhancer Double accept (defAccept Double))
+
+(enhancer Long accept (defAccept Long))
+
+(enhancer String accept (defAccept String))
+
+(defMacro defDelegate (nodeInner nodeMethod nodeInt) (bloc
+	(set paramList (quote (self)))
+	(set body (quote (. (getAttr self (unquote nodeInner)) (unquote nodeMethod))))
+	(for (i 0 (. nodeInt getValue)) (bloc
+		(set id (nodeIdentifier ("v" i)))
+		(. paramList add id)
+		(. body add id)
+	))
+	(nodeList (quote def) nodeMethod paramList body)
+))
+
+(defMacro defDelegateM (nodeInner nodeMethod nodeInts) (bloc
+	(set caseBody (quote (case)))
+	(forEach (nodeInt nodeInts) (bloc
+		(set i (+ (. nodeInt getValue) 1))
+		(. caseBody add (quote (= size (unquote (nodeValue i)))))
+		(set body (quote (. inner (unquote nodeMethod))))
+		(for (j 1 i) 	
+			(. body add (quote
+				(. args get (unquote (nodeValue j)))
+			))
+		)
+		(. caseBody add body)
+	))
+	(. caseBody add (quote true))
+	(. caseBody add (quote (throw (Exception "nombre d'argument incorrect"))))
+	(quote (def (unquote nodeMethod) args (bloc
+		(set size (. args size))
+		(set inner (getAttr (. args get 0) (unquote nodeInner)))
+		(unquote caseBody)
+	)))
+))
+
+(defMacro defDelegateV (nodeInner nodeMethod)
+	(quote (def (unquote nodeMethod) args (bloc
+		(set inner (getAttr (. args get 0) (unquote nodeInner)))
+		(set newArgs (list inner))
+		(. newArgs addAll (. args subList 1 (. args size)))
+		(call (getAttr inner (unquote nodeMethod)) newArgs)
+	)))
+)
+
+(defMacro enum (name members body) (bloc
+	(set enumClass (nodeList (quote class) name body))
+	(set nodeBloc (quote (bloc)))
+	(. nodeBloc add enumClass)
+	(. nodeBloc add (quote
+		(if (is (. (unquote name) getFonction "toString") null)
+			(setAttr (unquote name) toString (def toString (self) ((. self getName) "." (getAttr self name))))
+			null
+		)
+	))
+	(. nodeBloc add (quote (set enumValues (list))))
+	(set order 0)
+	(forEach (member members) (bloc
+		(set createMember (nodeList name))
+		(for (i 1 (. member size))
+			(. createMember add (. member get i))
+		)
+		(. nodeBloc add (quote
+			(set enumVar (unquote createMember))
+		))
+		(. nodeBloc add (quote
+			(setAttr enumVar order (unquote (nodeValue order)))
+		))
+		(set memberName (. member get 0))
+		(. nodeBloc add (quote
+			(setAttr enumVar name (unquote (nodeValue (. memberName getIdentifier))))
+		))
+		(. nodeBloc add (quote (. enumValues add enumVar)))
+		(. nodeBloc add (nodeList
+			(quote setAttr) name memberName (quote enumVar)
+		))
+		(++ order)
+	))
+	(. nodeBloc add (quote
+		(setAttr (unquote name) values enumValues)
+	))
+	(. nodeBloc add (quote (del enumVar)))
+	(. nodeBloc add (quote (del enumValues)))
+	(. nodeBloc add (quote
+		(setAttr (unquote name) init (def init () (throw (Exception "impossible d'instancier un enum"))))
+	))
+	(. nodeBloc add name)
+	nodeBloc
+))
+
+(defMacro simpleEnum args (bloc
+	(set name (. args get 0))
+	(set members (nodeList))
+	(for (i 1 (. args size))
+		(. members add (nodeList (. args get i)))
+	)
+	(nodeList (quote enum) name members (quote null))
+))

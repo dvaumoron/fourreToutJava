@@ -1,0 +1,378 @@
+
+(importAll fr.codi)
+
+(class Memoize (bloc
+	(def init (self func) (bloc
+		(setAttr self func func)
+		(setAttr self cache (dict))
+	))
+	(def apply (self n) (bloc
+		(set cache (getAttr self cache))
+		(if (. cache containsKey n)
+			(. cache get n)
+			(bloc
+				(set res ((getAttr self func) n))
+				(. cache put n res)
+				res
+			)
+		)
+	))
+))
+
+(def fact (n) (* n (fact (- n 1))))
+
+(set fact (Memoize fact))
+
+(. (getAttr fact cache) put 0 1)
+
+(def factIter (n) (bloc
+	(set res 1)
+	(for (i 2 (+ n 1))
+		(set res (* res i))
+	)
+	res
+))
+
+(set ci (CacheInit))
+
+(. (ci 0) set 0)
+
+(. (ci 1) set 1)
+
+(set fibCache (getAttr ci cache))
+
+(del ci)
+
+(def fib (n) (+ (fib (- n 1)) (fib (- n 2))))
+
+(set fib (memoize fib fibCache))
+
+(print "fact(10) =" (fact 10))
+
+(print "factIter(5) =" (factIter 5))
+
+(print "fact =" fact)
+
+(print "Memoize =" Memoize)
+
+(print "fib(10) =" (fib 10))
+
+(print "fibCache =" fibCache)
+
+(@def printCall triRapide (l)
+	(if (< (. l size) 2)
+		l
+		(bloc
+			(set l1 (list))
+			(set l2 (list))
+			(set it (. l iterator))
+			(set pivot (. it next))
+			(while (. it hasNext) (bloc
+				(set el (. it next))
+				(. (if (< (. el compareTo pivot) 0) l1 l2) add el)
+			))
+			(set res (list))
+			(. res addAll (triRapide l1))
+			(. res add pivot)
+			(. res addAll (triRapide l2))
+			res
+		)
+	)
+)
+
+(set l (list 5 2 6 4 1 3))
+
+(print "l =" l)
+
+(print "triRapide(l) =" (triRapide l))
+
+(class Tas (bloc
+	(def init (self value)
+		(setAttr self value value)
+	)
+	(def add (self value) (bloc
+		(set key
+			(if (< (. value compareTo (getAttr self value)) 0)
+				"gauche"
+				"droit"
+			)
+		)
+		(set arbre (getAttr self (key)))
+		(if (is arbre null)
+			(setAttr self (key) (Tas value))
+			(. arbre add value)
+		)
+	))
+	(def toList (self) (bloc
+		(set res (list))
+		(addArbreToList self "gauche" res)
+		(. res add (getAttr self value))
+		(addArbreToList self "droit" res)
+		res
+	))
+))
+
+(def addArbreToList (t key l) (bloc
+	(set arbre (getAttr t (key)))
+	(if (is arbre null)
+		null
+		(. l addAll (. arbre toList))
+	)
+))
+
+(def triTas (l)
+	(if (< (. l size) 2)
+		l
+		(bloc
+			(set it (. l iterator))
+			(set t (Tas (. it next)))
+			(set add (partialCall t add))
+			(while (. it hasNext)
+				(add (. it next))
+			)
+			(print t)
+			(. t toList)
+		)
+	)
+)
+
+(print "triTas(l) =" (triTas l))
+
+(print "l.sort(-)")
+
+(. l sort -)
+
+(print "l =" l)
+
+(class NumberComparator
+	(@def staticMethod compare (a b) (- b a))
+)
+
+(print "sort(l, NumberComparator)")
+
+(sort l NumberComparator)
+
+(print "l =" l)
+
+(print "map(--, l) =" (map -- l))
+
+(print "map(*2, l) =" (map (Partial * 2) l))
+
+(print "l.replaceAll(e -> e + 1)" )
+
+(. l replaceAll (lambda (e) (+ e 1)))
+
+(print "l =" l)
+
+(print "max(l) =" (max l))
+
+(pojo Wrapper value)
+
+(class LongWrapper Wrapper (bloc
+	(def compareTo (self other)
+		(- (getAttr self value) (getAttr other value))
+	)
+	(def toString (self)
+		("LongWrapper(" (getAttr self value) ")")
+	)
+))
+
+(set l2 (list (LongWrapper 3) (LongWrapper 1) (LongWrapper 2)))
+
+(print "l2 =" l2)
+
+(print "sort(l2)")
+
+(sort l2)
+
+(print "l2 =" l2)
+
+(set lw (LongWrapper 5))
+
+(print "lw =" lw)
+
+(print Wrapper)
+
+(print (type lw))
+
+(print "lw.hashCode() =" (. lw hashCode))
+
+(class LongDecorator Decorator
+	(def hashCode (self)
+		(+ 1 (. (getAttr self inner) hashCode))
+	)
+)
+
+(set ld (LongDecorator lw))
+
+(print ld)
+
+(print (type ld))
+
+(print "ld.hashCode() =" (. ld hashCode))
+
+(print "ld == lw =" (= ld lw))
+
+(print "ld.compareTo(lw) =" (. ld compareTo lw))
+
+(set lc (Composite))
+
+(. lc addItem lw)
+
+(set lc2 (Composite))
+
+(. lc2 addItem 7)
+
+(. lc2 addItem 9)
+
+(. lc addItem lc2)
+
+(print lc)
+
+(print (type lc))
+
+(print "lc.hashCode() =" (. lc hashCode))
+
+(print "it.next() =" (. (. l iterator) next))
+
+(print "itL.previous() =" (. (. l listIterator (. l size)) previous))
+
+(print "s.reduce(8, *) =" (. (. l stream) reduce 8 *))
+
+(print "reduce(*, l, 8) =" (reduce * l 8))
+
+(set mf (MockFunction))
+
+(print "mf(1, 2) =" (mf 1 2))
+
+(. (mf 1 2) set 42)
+
+(. (mf 10) set 2520)
+
+(print "mf =" mf)
+
+(print "mf(1, 2) =" (mf 1 2))
+
+(print "mf(10) =" (mf 10))
+
+(set mo (MockObject))
+
+(. (. mo test 1) set 4)
+
+(. (mo 2 3) set 5)
+
+(print "mo =" mo)
+
+(print "mo.test(1) =" (. mo test 1))
+
+(print "mo(2, 3) =" (mo 2 3))
+
+(class Cell (bloc
+	(def init (self)
+		(setAttr self value false)
+	)
+	(def setValue (self value)
+		(setAttr self value value)
+	)
+	(def getValue (self)
+		(getAttr self value)
+	)
+	(set setTrue (PartialMethod setValue true))
+	(set setFalse (PartialMethod setValue false))
+	(set apply (staticMethod print))
+	(set myPrint (classMethod print))
+))
+
+(set c (Cell))
+
+(c "c =" c)
+
+(. c setTrue)
+
+(. c myPrint 1)
+
+(. Cell myPrint 2)
+
+(print "c.getValue() =" (. c getValue))
+
+(class Closeable (bloc
+	(def init (self value)
+		(setAttr self value value)
+	)
+	(def increment (self)
+		(setAttr self value (+ 1 (getAttr self value)))
+	)
+	(def close (self)
+		(print "closeable.value =" (getAttr self value))
+	)
+))
+
+(with (c (Closeable 0)) (bloc
+	(print "c =" c)
+	(. c increment)
+))
+
+(print "c =" c)
+
+(@class staticClass PrintVisitor (getEnv) (bloc
+	(def visitLong (value)
+		(print "Long :" value)
+	)
+	(def visitDouble (value)
+		(print "Double :" value)
+	)
+	(def visitCharacter (value)
+		(print "Character :" value)
+	)
+	(def visitString (value)
+		(print "String :" value)
+	)
+))
+
+(. 1 accept PrintVisitor)
+
+(. 2.5 accept PrintVisitor)
+
+(. 'a' accept PrintVisitor)
+
+(. "abc" accept PrintVisitor)
+
+(@def classMethod f args (print args))
+
+(f 0 1 2 3)
+
+(pojo Position line column)
+
+(set p (Position 3 5))
+
+(set p2 (Position 3 null))
+
+(print "p =" p)
+
+(print "p2 =" p2)
+
+(print "p.hasCode() =" (. p hashCode))
+
+(print "p == p =" (= p p))
+
+(print "p == Position(3, 5) =" (= p (Position 3 5)))
+
+(print "p == p2 =" (= p p2))
+
+(print "p2.hasCode() =" (. p2 hashCode))
+
+(set yName "y")
+
+(setM (x (yName)) p)
+
+(del yName)
+
+(print "x =" x)
+
+(print "y =" y)
+
+(print (getEnhancers))
+
+(print (getModuleCache))
+
+(print (getEnv))

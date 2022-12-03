@@ -1,0 +1,106 @@
+
+(def abs (x)
+	(if (< x 0)
+		(neg x)
+		x
+	)
+)
+
+(defMacro != (a b)
+	(quote (not (= (unquote a) (unquote b))))
+)
+
+(defMacro isNot (a b)
+	(quote (not (is (unquote a) (unquote b))))
+)
+
+(def map (func iterable) (bloc
+	(set res (list))
+	(forEach (el iterable)
+		(. res add (func el))
+	)
+	res
+))
+
+(def max (iterable) (bloc
+	(set it (. iterable iterator))
+	(if (. it hasNext)
+		(bloc
+			(set res (. it next))
+			(while (. it hasNext) (bloc
+				(set el (. it next))
+				(if (> (. el compareTo res) 0)
+					(set res el)
+					null
+				)
+			))
+		)
+		null
+	)
+	res
+))
+
+(def min (iterable) (bloc
+	(set it (. iterable iterator))
+	(if (. it hasNext)
+		(bloc
+			(set res (. it next))
+			(while (. it hasNext) (bloc
+				(set el (. it next))
+				(if (< (. el compareTo res) 0)
+					(set res el)
+					null
+				)
+			))
+		)
+		null
+	)
+	res
+))
+
+(def filter (func iterable) (bloc
+	(set res (list))
+	(forEach (el iterable)
+		(if (func el)
+			(. res add el)
+			null
+		)
+	)
+	res
+))
+
+(def reduce (func iterable init) (bloc
+	(set res init)
+	(forEach (el iterable)
+		(set res (func res el))
+	)
+	res
+))
+
+(defMacro ++ (e) (quote (set (unquote e) (+ (unquote e) 1))))
+
+(defMacro -- (e) (quote (set (unquote e) (- (unquote e) 1))))
+
+(def staticMethod (func) (bloc
+	(def res args
+		(call func (. args subList 1 (. args size)))
+	)
+	(. res setName (. func getName))
+	res
+))
+
+(def classMethod (func) (bloc
+	(def res args (bloc
+		(set self (. args get 0))
+		(if (isClass self)
+			(set newArgs args)
+			(bloc
+				(set newArgs (list (type self)))
+				(. newArgs addAll (. args subList 1 (. args size)))
+			)
+		)
+		(call func newArgs)
+	))
+	(. res setName (. func getName))
+	res
+))
