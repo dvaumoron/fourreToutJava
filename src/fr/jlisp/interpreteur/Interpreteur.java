@@ -36,7 +36,7 @@ import fr.jlisp.interpreteur.runtime.builtins.FonctionMinus;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionNeg;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionNodeList;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionNodeValue;
-import fr.jlisp.interpreteur.runtime.builtins.FonctionNodeœdentifier;
+import fr.jlisp.interpreteur.runtime.builtins.FonctionNodeIdentifier;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionNot;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionPower;
 import fr.jlisp.interpreteur.runtime.builtins.FonctionPrint;
@@ -160,7 +160,7 @@ public class Interpreteur {
 		this.builtins.set("list", FonctionList.LIST);
 		this.builtins.set("neg", FonctionNeg.NEG);
 		this.builtins.set("nodeIdentifier",
-				FonctionNodeœdentifier.NODE_IDENTIFIER);
+				FonctionNodeIdentifier.NODE_IDENTIFIER);
 		this.builtins.set("nodeList", FonctionNodeList.NODE_LIST);
 		this.builtins.set("nodeValue", FonctionNodeValue.NODE_VALUE);
 		this.builtins.set("not", FonctionNot.NOT);

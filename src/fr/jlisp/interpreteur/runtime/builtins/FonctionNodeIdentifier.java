@@ -5,7 +5,7 @@ import java.util.List;
 import fr.jlisp.interpreteur.runtime.Fonction;
 import fr.jlisp.syntaxique.NodeIdentifier;
 
-public enum FonctionNodeœdentifier implements Fonction {
+public enum FonctionNodeIdentifier implements Fonction {
 
 	NODE_IDENTIFIER;
 
